@@ -1,0 +1,3328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Sentinel Paws | Waterway Health
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+    ></script>
+
+
+    <style>
+
+        * {
+            box-sizing:
+                border-box;
+        }
+
+
+        body {
+
+            margin:
+                0;
+
+            font-family:
+                "Nunito",
+                sans-serif;
+
+            background:
+                #f4fafb;
+
+            color:
+                #17384d;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b2638,
+                    #12536a
+                );
+
+            color:
+                white;
+
+            padding:
+                18px 35px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+
+            flex-wrap:
+                wrap;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .15
+                );
+
+        }
+
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .brand-icon {
+
+            width:
+                55px;
+
+            height:
+                55px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                #159a9c;
+
+            border-radius:
+                16px;
+
+            font-size:
+                28px;
+
+        }
+
+
+        .brand h1 {
+
+            margin:
+                0;
+
+            font-size:
+                25px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .brand p {
+
+            margin:
+                2px 0 0;
+
+            color:
+                #bce9eb;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        nav {
+
+            display:
+                flex;
+
+            gap:
+                8px;
+
+        }
+
+
+        nav button {
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .2
+                );
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .08
+                );
+
+            color:
+                white;
+
+            padding:
+                10px 17px;
+
+            border-radius:
+                10px;
+
+            font-family:
+                inherit;
+
+            font-weight:
+                800;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        nav button.active,
+        nav button:hover {
+
+            background:
+                #159a9c;
+
+            border-color:
+                #159a9c;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        main {
+
+            max-width:
+                1400px;
+
+            margin:
+                auto;
+
+            padding:
+                30px;
+
+        }
+
+
+        .page {
+
+            display:
+                none;
+
+        }
+
+
+        .page.active {
+
+            display:
+                block;
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+
+            padding:
+                35px;
+
+            border-radius:
+                22px;
+
+            color:
+                white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b2638,
+                    #12687a,
+                    #159a9c
+                );
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .hero h2 {
+
+            margin:
+                0 0 8px;
+
+            font-size:
+                32px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .hero p {
+
+            margin:
+                0;
+
+            max-width:
+                760px;
+
+            color:
+                #d2f1f2;
+
+            font-weight:
+                600;
+
+        }
+
+
+        /* =====================================================
+           SECTION
+        ===================================================== */
+
+        .section-title {
+
+            margin:
+                25px 0 15px;
+
+            color:
+                #123047;
+
+            font-size:
+                21px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    5,
+                    1fr
+                );
+
+            gap:
+                15px;
+
+        }
+
+
+        .stat {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #dcebee;
+
+            border-radius:
+                17px;
+
+            padding:
+                20px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    18,
+                    48,
+                    71,
+                    .07
+                );
+
+        }
+
+
+        .stat-icon {
+
+            font-size:
+                28px;
+
+        }
+
+
+        .stat-number {
+
+            margin-top:
+                5px;
+
+            color:
+                #123047;
+
+            font-size:
+                30px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .stat-label {
+
+            color:
+                #66808f;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .stat.high {
+
+            border-top:
+                4px solid
+                #d94b4b;
+
+        }
+
+
+        .stat.medium {
+
+            border-top:
+                4px solid
+                #e47b28;
+
+        }
+
+
+        .stat.low {
+
+            border-top:
+                4px solid
+                #2e9b63;
+
+        }
+
+
+        .stat.total {
+
+            border-top:
+                4px solid
+                #159a9c;
+
+        }
+
+
+        /* =====================================================
+           CHARTS
+        ===================================================== */
+
+        .charts {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                18px;
+
+        }
+
+
+        .chart-card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #dcebee;
+
+            border-radius:
+                18px;
+
+            padding:
+                20px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    18,
+                    48,
+                    71,
+                    .07
+                );
+
+        }
+
+
+        .chart-card.full {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        .chart-title {
+
+            margin:
+                0 0 15px;
+
+            color:
+                #123047;
+
+            font-size:
+                16px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .chart-box {
+
+            height:
+                280px;
+
+        }
+
+
+        /* =====================================================
+           WATERWAY CARDS
+        ===================================================== */
+
+        .waterways {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(
+                        280px,
+                        1fr
+                    )
+                );
+
+            gap:
+                16px;
+
+        }
+
+
+        .waterway {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #dcebee;
+
+            border-radius:
+                18px;
+
+            padding:
+                20px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    18,
+                    48,
+                    71,
+                    .07
+                );
+
+        }
+
+
+        .waterway-top {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            gap:
+                10px;
+
+        }
+
+
+        .waterway h3 {
+
+            margin:
+                0;
+
+            color:
+                #123047;
+
+            font-size:
+                17px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .coordinates {
+
+            margin-top:
+                3px;
+
+            color:
+                #78909b;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .badge {
+
+            height:
+                fit-content;
+
+            padding:
+                6px 10px;
+
+            border-radius:
+                50px;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .badge.high {
+
+            color:
+                #c73535;
+
+            background:
+                #fdeaea;
+
+        }
+
+
+        .badge.medium {
+
+            color:
+                #c86b1d;
+
+            background:
+                #fff0e4;
+
+        }
+
+
+        .badge.low {
+
+            color:
+                #268052;
+
+            background:
+                #e7f7ee;
+
+        }
+
+
+        .badge.unknown {
+
+            color:
+                #667d87;
+
+            background:
+                #edf3f5;
+
+        }
+
+
+        .waterway-stats {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap:
+                8px;
+
+            margin-top:
+                18px;
+
+        }
+
+
+        .mini {
+
+            text-align:
+                center;
+
+            padding:
+                10px;
+
+            background:
+                #f5fafb;
+
+            border-radius:
+                10px;
+
+        }
+
+
+        .mini strong {
+
+            display:
+                block;
+
+            color:
+                #123047;
+
+            font-size:
+                17px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .mini span {
+
+            color:
+                #6b838d;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .signal {
+
+            margin-top:
+                15px;
+
+        }
+
+
+        .signal-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            color:
+                #66808f;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .signal-bar {
+
+            height:
+                8px;
+
+            margin-top:
+                6px;
+
+            overflow:
+                hidden;
+
+            background:
+                #e6eff1;
+
+            border-radius:
+                50px;
+
+        }
+
+
+        .signal-fill {
+
+            height:
+                100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #159a9c,
+                    #35c6d0
+                );
+
+            border-radius:
+                50px;
+
+        }
+
+
+        /* =====================================================
+           REPORTS TABLE
+        ===================================================== */
+
+        .table-card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #dcebee;
+
+            border-radius:
+                18px;
+
+            overflow:
+                hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    18,
+                    48,
+                    71,
+                    .07
+                );
+
+        }
+
+
+        .table-scroll {
+
+            overflow-x:
+                auto;
+
+        }
+
+
+        table {
+
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+
+        }
+
+
+        th {
+
+            padding:
+                14px;
+
+            text-align:
+                left;
+
+            color:
+                #66808f;
+
+            background:
+                #f5fafb;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        td {
+
+            padding:
+                14px;
+
+            border-top:
+                1px solid
+                #edf3f5;
+
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #dcebee;
+
+            border-radius:
+                20px;
+
+            padding:
+                25px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    18,
+                    48,
+                    71,
+                    .07
+                );
+
+        }
+
+
+        .form-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                18px;
+
+        }
+
+
+        .field {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                6px;
+
+        }
+
+
+        .field.full {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        .field label {
+
+            color:
+                #123047;
+
+            font-size:
+                13px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .field input,
+        .field select {
+
+            padding:
+                12px;
+
+            border:
+                1px solid
+                #d5e5e8;
+
+            border-radius:
+                10px;
+
+            outline:
+                none;
+
+            font-family:
+                inherit;
+
+        }
+
+
+        .field input:focus,
+        .field select:focus {
+
+            border-color:
+                #159a9c;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    21,
+                    154,
+                    156,
+                    .1
+                );
+
+        }
+
+
+        .symptoms {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                8px;
+
+        }
+
+
+        .symptoms label {
+
+            padding:
+                8px 12px;
+
+            background:
+                #f2f8f9;
+
+            border:
+                1px solid
+                #dcebee;
+
+            border-radius:
+                9px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .checks {
+
+            display:
+                flex;
+
+            gap:
+                25px;
+
+            flex-wrap:
+                wrap;
+
+        }
+
+
+        .checks label {
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .submit {
+
+            grid-column:
+                1 / -1;
+
+            padding:
+                14px;
+
+            border:
+                none;
+
+            border-radius:
+                11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #159a9c,
+                    #2878a8
+                );
+
+            color:
+                white;
+
+            font-family:
+                inherit;
+
+            font-size:
+                15px;
+
+            font-weight:
+                900;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .submit:hover {
+
+            opacity:
+                .9;
+
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading {
+
+            padding:
+                50px;
+
+            text-align:
+                center;
+
+            color:
+                #66808f;
+
+            font-weight:
+                800;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            padding:
+                30px;
+
+            text-align:
+                center;
+
+            color:
+                #66808f;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (
+            max-width: 1000px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 750px
+        ) {
+
+            main {
+
+                padding:
+                    15px;
+
+            }
+
+
+            header {
+
+                padding:
+                    15px;
+
+            }
+
+
+            .charts {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .chart-card.full {
+
+                grid-column:
+                    auto;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .field.full,
+            .submit {
+
+                grid-column:
+                    auto;
+
+            }
+
+
+            nav {
+
+                width:
+                    100%;
+
+            }
+
+
+            nav button {
+
+                flex:
+                    1;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 500px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .hero {
+
+                padding:
+                    25px;
+
+            }
+
+
+            .hero h2 {
+
+                font-size:
+                    25px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🐾
+        </div>
+
+        <div>
+
+            <h1>
+                Sentinel Paws
+            </h1>
+
+            <p>
+                Community Waterway Health Monitor
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <button
+            class="active"
+            onclick="showPage('dashboard', this)"
+        >
+            📊 Dashboard
+        </button>
+
+        <button
+            onclick="showPage('reports', this)"
+        >
+            📋 Reports
+        </button>
+
+        <button
+            onclick="showPage('newReport', this)"
+        >
+            🐶 New Report
+        </button>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section
+    id="dashboard"
+    class="page active"
+>
+
+
+    <div class="hero">
+
+        <h2>
+            Waterway Health Dashboard 🌊
+        </h2>
+
+        <p>
+            Monitor community-reported dog health
+            observations to identify potential water
+            contamination signals early.
+        </p>
+
+    </div>
+
+
+    <div class="section-title">
+
+        📈 Waterway Overview
+
+    </div>
+
+
+    <div class="stats">
+
+
+        <div class="stat total">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <div
+                class="stat-number"
+                id="totalReports"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Total Reports
+            </div>
+
+        </div>
+
+
+        <div class="stat total">
+
+            <div class="stat-icon">
+                💧
+            </div>
+
+            <div
+                class="stat-number"
+                id="totalWaterways"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Waterways Monitored
+            </div>
+
+        </div>
+
+
+        <div class="stat high">
+
+            <div class="stat-icon">
+                🔴
+            </div>
+
+            <div
+                class="stat-number"
+                id="highRisk"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Elevated Risk
+            </div>
+
+        </div>
+
+
+        <div class="stat medium">
+
+            <div class="stat-icon">
+                🟠
+            </div>
+
+            <div
+                class="stat-number"
+                id="mediumRisk"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Watch Closely
+            </div>
+
+        </div>
+
+
+        <div class="stat low">
+
+            <div class="stat-icon">
+                🟢
+            </div>
+
+            <div
+                class="stat-number"
+                id="lowRisk"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                No Elevated Signal
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         CHARTS
+    ====================================================== -->
+
+    <div class="section-title">
+        📊 Risk Analytics
+    </div>
+
+
+    <div class="charts">
+
+
+        <div class="chart-card">
+
+            <h3 class="chart-title">
+                Waterway Risk Distribution
+            </h3>
+
+            <div class="chart-box">
+
+                <canvas
+                    id="riskChart"
+                ></canvas>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3 class="chart-title">
+                Symptomatic Reports
+            </h3>
+
+            <div class="chart-box">
+
+                <canvas
+                    id="symptomChart"
+                ></canvas>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-card full">
+
+            <h3 class="chart-title">
+                Reports & Risk Signals
+            </h3>
+
+            <div class="chart-box">
+
+                <canvas
+                    id="signalChart"
+                ></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         WATERWAYS
+    ====================================================== -->
+
+    <div class="section-title">
+        💧 Monitored Waterways
+    </div>
+
+
+    <div
+        id="waterways"
+        class="waterways"
+    >
+
+        <div class="loading">
+            🐾 Loading waterways...
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     REPORTS
+========================================================= -->
+
+<section
+    id="reports"
+    class="page"
+>
+
+
+    <div class="section-title">
+        📋 Community Reports
+    </div>
+
+
+    <div class="table-card">
+
+        <div class="table-scroll">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Dog
+                        </th>
+
+                        <th>
+                            Waterway
+                        </th>
+
+                        <th>
+                            Contact
+                        </th>
+
+                        <th>
+                            Symptoms
+                        </th>
+
+                        <th>
+                            Other Factors
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="reportsTable"
+                >
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            style="
+                                text-align:center;
+                            "
+                        >
+                            Loading...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     NEW REPORT
+========================================================= -->
+
+<section
+    id="newReport"
+    class="page"
+>
+
+
+    <div class="section-title">
+        🐶 Submit a Water Contact Report
+    </div>
+
+
+    <div class="form">
+
+
+        <form
+            id="reportForm"
+        >
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Dog Name
+                    </label>
+
+                    <input
+                        id="dogName"
+                        type="text"
+                        placeholder="e.g. Bruno"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Waterway Name
+                    </label>
+
+                    <input
+                        id="locationName"
+                        type="text"
+                        placeholder="e.g. Central Park Lake"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Latitude
+                    </label>
+
+                    <input
+                        id="lat"
+                        type="number"
+                        step="any"
+                        placeholder="40.7831"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Longitude
+                    </label>
+
+                    <input
+                        id="lng"
+                        type="number"
+                        step="any"
+                        placeholder="-73.9652"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Water Contact
+                    </label>
+
+                    <select
+                        id="contact"
+                        required
+                    >
+
+                        <option value="">
+                            Select
+                        </option>
+
+                        <option value="swam">
+                            🏊 Swam
+                        </option>
+
+                        <option value="waded">
+                            🐾 Waded
+                        </option>
+
+                        <option value="drank">
+                            💧 Drank
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Symptoms
+                    </label>
+
+
+                    <div class="symptoms">
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="none"
+                            >
+                            None
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="vomiting"
+                            >
+                            Vomiting
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="diarrhea"
+                            >
+                            Diarrhea
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="lethargy"
+                            >
+                            Lethargy
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="rash"
+                            >
+                            Rash
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="seizure"
+                            >
+                            Seizure
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="difficulty breathing"
+                            >
+                            Difficulty Breathing
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="symptoms"
+                                value="drooling"
+                            >
+                            Drooling
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <div class="checks">
+
+
+                        <label>
+
+                            <input
+                                id="ateUnusualFood"
+                                type="checkbox"
+                            >
+
+                            Ate unusual food
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                id="recentDietChange"
+                                type="checkbox"
+                            >
+
+                            Recent diet change
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="submit"
+                    type="submit"
+                >
+
+                    🐾 Submit Waterway Report
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+    🐾 Sentinel Paws
+
+    <br>
+
+    Community-powered waterway health monitoring
+
+    <br>
+
+    Animal Health • Environmental Health • One Health
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+let dashboardData = [];
+
+let reportsData = [];
+
+let riskChart = null;
+
+let symptomChart = null;
+
+let signalChart = null;
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPage(
+    pageId,
+    button
+) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            (page) =>
+                page.classList.remove(
+                    "active"
+                )
+        );
+
+
+    document
+        .getElementById(pageId)
+        .classList.add(
+            "active"
+        );
+
+
+    document
+        .querySelectorAll("nav button")
+        .forEach(
+            (btn) =>
+                btn.classList.remove(
+                    "active"
+                )
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    if (
+        pageId ===
+        "dashboard"
+    ) {
+
+        loadDashboard();
+
+    }
+
+
+    if (
+        pageId ===
+        "reports"
+    ) {
+
+        loadReports();
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD DASHBOARD
+========================================================= */
+
+async function loadDashboard() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/dashboard"
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                "Dashboard API failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+         * IMPORTANT:
+         *
+         * server.js returns:
+         *
+         * {
+         *   success: true,
+         *   summary: {...},
+         *   clusters: [...]
+         * }
+         *
+         * Therefore we use
+         * data.summary and
+         * data.clusters.
+         */
+
+
+        dashboardData =
+            data.clusters || [];
+
+
+        updateStats(
+            data.summary
+        );
+
+
+        renderWaterways();
+
+
+        renderCharts();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        document.getElementById(
+            "waterways"
+        ).innerHTML = `
+
+            <div class="loading">
+
+                ⚠️ Unable to connect
+                to Sentinel Paws server.
+
+                <br><br>
+
+                Make sure server.js
+                is running on port 5000.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE STATS
+========================================================= */
+
+function updateStats(
+    summary
+) {
+
+    if (!summary) {
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "totalReports"
+    ).textContent =
+        summary.totalReports || 0;
+
+
+    document.getElementById(
+        "totalWaterways"
+    ).textContent =
+        summary.totalWaterways || 0;
+
+
+    document.getElementById(
+        "highRisk"
+    ).textContent =
+        summary.highRisk || 0;
+
+
+    document.getElementById(
+        "mediumRisk"
+    ).textContent =
+        summary.mediumRisk || 0;
+
+
+    document.getElementById(
+        "lowRisk"
+    ).textContent =
+        summary.lowRisk || 0;
+
+}
+
+
+/* =========================================================
+   RENDER WATERWAYS
+========================================================= */
+
+function renderWaterways() {
+
+    const container =
+        document.getElementById(
+            "waterways"
+        );
+
+
+    if (
+        dashboardData.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="loading">
+
+                💧 No waterways monitored yet.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        dashboardData
+            .map(
+                (cluster) => {
+
+                    const risk =
+                        cluster.riskLevel ||
+                        "unknown";
+
+
+                    const badgeText =
+                        risk === "high"
+                            ? "🔴 Elevated Risk"
+                            : risk === "medium"
+                            ? "🟠 Watch Closely"
+                            : risk === "low"
+                            ? "🟢 No Elevated Signal"
+                            : "⚪ Insufficient Data";
+
+
+                    return `
+
+                        <div
+                            class="waterway"
+                        >
+
+                            <div
+                                class="waterway-top"
+                            >
+
+                                <div>
+
+                                    <h3>
+                                        💧
+                                        ${escapeHtml(
+                                            cluster.locationName
+                                        )}
+                                    </h3>
+
+                                    <div
+                                        class="coordinates"
+                                    >
+                                        📍
+                                        ${Number(
+                                            cluster.lat
+                                        ).toFixed(4)},
+                                        ${Number(
+                                            cluster.lng
+                                        ).toFixed(4)}
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="
+                                        badge
+                                        ${risk}
+                                    "
+                                >
+                                    ${badgeText}
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="waterway-stats"
+                            >
+
+                                <div
+                                    class="mini"
+                                >
+
+                                    <strong>
+                                        ${
+                                            cluster.totalLogs ||
+                                            0
+                                        }
+                                    </strong>
+
+                                    <span>
+                                        Reports
+                                    </span>
+
+                                </div>
+
+
+                                <div
+                                    class="mini"
+                                >
+
+                                    <strong>
+                                        ${
+                                            cluster.symptomRate ||
+                                            0
+                                        }%
+                                    </strong>
+
+                                    <span>
+                                        Symptom Rate
+                                    </span>
+
+                                </div>
+
+
+                                <div
+                                    class="mini"
+                                >
+
+                                    <strong>
+                                        ${
+                                            cluster.signalScore ||
+                                            0
+                                        }
+                                    </strong>
+
+                                    <span>
+                                        Signal Score
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="signal"
+                            >
+
+                                <div
+                                    class="signal-header"
+                                >
+
+                                    <span>
+                                        Risk signal
+                                    </span>
+
+                                    <span>
+                                        ${
+                                            cluster.signalScore ||
+                                            0
+                                        }/100
+                                    </span>
+
+                                </div>
+
+
+                                <div
+                                    class="signal-bar"
+                                >
+
+                                    <div
+                                        class="signal-fill"
+                                        style="
+                                            width:${Math.min(
+                                                100,
+                                                cluster.signalScore ||
+                                                    0
+                                            )}%;
+                                        "
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                style="
+                                    margin-top:12px;
+                                    color:#66808f;
+                                    font-size:12px;
+                                    font-weight:700;
+                                "
+                            >
+
+                                ${escapeHtml(
+                                    cluster.riskStatus ||
+                                    "Insufficient data"
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   CHARTS
+========================================================= */
+
+function renderCharts() {
+
+
+    /* -------------------------------------------------------
+       RISK CHART
+    ------------------------------------------------------- */
+
+    if (riskChart) {
+
+        riskChart.destroy();
+
+    }
+
+
+    const high =
+        dashboardData.filter(
+            (item) =>
+                item.riskLevel ===
+                "high"
+        ).length;
+
+
+    const medium =
+        dashboardData.filter(
+            (item) =>
+                item.riskLevel ===
+                "medium"
+        ).length;
+
+
+    const low =
+        dashboardData.filter(
+            (item) =>
+                item.riskLevel ===
+                "low"
+        ).length;
+
+
+    const unknown =
+        dashboardData.filter(
+            (item) =>
+                item.riskLevel ===
+                "unknown"
+        ).length;
+
+
+    riskChart =
+        new Chart(
+            document.getElementById(
+                "riskChart"
+            ),
+            {
+
+                type:
+                    "doughnut",
+
+                data: {
+
+                    labels: [
+
+                        "Elevated Risk",
+
+                        "Watch Closely",
+
+                        "No Elevated Signal",
+
+                        "Insufficient Data",
+
+                    ],
+
+                    datasets: [
+
+                        {
+
+                            data: [
+
+                                high,
+
+                                medium,
+
+                                low,
+
+                                unknown,
+
+                            ],
+
+                            backgroundColor: [
+
+                                "#d94b4b",
+
+                                "#e47b28",
+
+                                "#2e9b63",
+
+                                "#b8c8ce",
+
+                            ],
+
+                            borderWidth:
+                                3,
+
+                            borderColor:
+                                "#ffffff",
+
+                        },
+
+                    ],
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    plugins: {
+
+                        legend: {
+
+                            position:
+                                "bottom",
+
+                        },
+
+                    },
+
+                },
+
+            }
+        );
+
+
+    /* -------------------------------------------------------
+       SYMPTOM CHART
+    ------------------------------------------------------- */
+
+    if (symptomChart) {
+
+        symptomChart.destroy();
+
+    }
+
+
+    symptomChart =
+        new Chart(
+            document.getElementById(
+                "symptomChart"
+            ),
+            {
+
+                type:
+                    "bar",
+
+                data: {
+
+                    labels:
+                        dashboardData.map(
+                            (item) =>
+                                item.locationName
+                        ),
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Symptomatic",
+
+                            data:
+                                dashboardData.map(
+                                    (item) =>
+                                        item.symptomaticLogs ||
+                                        0
+                                ),
+
+                            backgroundColor:
+                                "#159a9c",
+
+                            borderRadius:
+                                7,
+
+                        },
+
+
+                        {
+
+                            label:
+                                "Confirmed",
+
+                            data:
+                                dashboardData.map(
+                                    (item) =>
+                                        item.confirmedSymptomaticLogs ||
+                                        0
+                                ),
+
+                            backgroundColor:
+                                "#2878a8",
+
+                            borderRadius:
+                                7,
+
+                        },
+
+                    ],
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                            ticks: {
+
+                                precision:
+                                    0,
+
+                            },
+
+                        },
+
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            position:
+                                "bottom",
+
+                        },
+
+                    },
+
+                },
+
+            }
+        );
+
+
+    /* -------------------------------------------------------
+       SIGNAL CHART
+    ------------------------------------------------------- */
+
+    if (signalChart) {
+
+        signalChart.destroy();
+
+    }
+
+
+    signalChart =
+        new Chart(
+            document.getElementById(
+                "signalChart"
+            ),
+            {
+
+                type:
+                    "bar",
+
+                data: {
+
+                    labels:
+                        dashboardData.map(
+                            (item) =>
+                                item.locationName
+                        ),
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Signal Score",
+
+                            data:
+                                dashboardData.map(
+                                    (item) =>
+                                        item.signalScore ||
+                                        0
+                                ),
+
+                            backgroundColor:
+                                "#35c6d0",
+
+                            borderRadius:
+                                7,
+
+                        },
+
+
+                        {
+
+                            label:
+                                "Reports",
+
+                            data:
+                                dashboardData.map(
+                                    (item) =>
+                                        item.totalLogs ||
+                                        0
+                                ),
+
+                            backgroundColor:
+                                "#123047",
+
+                            borderRadius:
+                                7,
+
+                        },
+
+                    ],
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                        },
+
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            position:
+                                "bottom",
+
+                        },
+
+                    },
+
+                },
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   LOAD REPORTS
+========================================================= */
+
+async function loadReports() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/reports"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        reportsData =
+            data.reports || [];
+
+
+        renderReports();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER REPORTS
+========================================================= */
+
+function renderReports() {
+
+    const table =
+        document.getElementById(
+            "reportsTable"
+        );
+
+
+    if (
+        reportsData.length === 0
+    ) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                    "
+                >
+                    No reports yet.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        reportsData
+            .slice()
+            .reverse()
+            .map(
+                (report) => {
+
+                    const symptoms =
+                        Array.isArray(
+                            report.symptoms
+                        )
+                            ? report.symptoms.join(
+                                  ", "
+                              )
+                            : "none";
+
+
+                    const factors = [];
+
+
+                    if (
+                        report.ateUnusualFood
+                    ) {
+
+                        factors.push(
+                            "Unusual food"
+                        );
+
+                    }
+
+
+                    if (
+                        report.recentDietChange
+                    ) {
+
+                        factors.push(
+                            "Diet change"
+                        );
+
+                    }
+
+
+                    return `
+
+                        <tr>
+
+                            <td>
+                                🐶
+                                ${escapeHtml(
+                                    report.dogName
+                                )}
+                            </td>
+
+                            <td>
+                                💧
+                                ${escapeHtml(
+                                    report.locationName
+                                )}
+                            </td>
+
+                            <td>
+                                ${formatContact(
+                                    report.contact
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    symptoms
+                                )}
+                            </td>
+
+                            <td>
+                                ${
+                                    factors.length
+                                        ? escapeHtml(
+                                              factors.join(
+                                                  ", "
+                                              )
+                                          )
+                                        : "None"
+                                }
+                            </td>
+
+                            <td>
+                                ${new Date(
+                                    report.timestamp
+                                ).toLocaleString()}
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+function formatContact(
+    contact
+) {
+
+    const map = {
+
+        swam:
+            "🏊 Swam",
+
+        waded:
+            "🐾 Waded",
+
+        drank:
+            "💧 Drank",
+
+        other:
+            "Other",
+
+    };
+
+
+    return (
+        map[contact] ||
+        "Other"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   SYMPTOM "NONE"
+========================================================= */
+
+document
+    .querySelectorAll(
+        'input[name="symptoms"]'
+    )
+    .forEach(
+        (checkbox) => {
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    if (
+                        checkbox.value ===
+                            "none" &&
+                        checkbox.checked
+                    ) {
+
+                        document
+                            .querySelectorAll(
+                                'input[name="symptoms"]'
+                            )
+                            .forEach(
+                                (other) => {
+
+                                    if (
+                                        other !==
+                                        checkbox
+                                    ) {
+
+                                        other.checked =
+                                            false;
+
+                                    }
+
+                                }
+                            );
+
+                    }
+
+
+                    if (
+                        checkbox.value !==
+                            "none" &&
+                        checkbox.checked
+                    ) {
+
+                        const none =
+                            document.querySelector(
+                                'input[name="symptoms"][value="none"]'
+                            );
+
+
+                        if (none) {
+
+                            none.checked =
+                                false;
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   SUBMIT REPORT
+========================================================= */
+
+document
+    .getElementById(
+        "reportForm"
+    )
+    .addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            const checkedSymptoms =
+                Array.from(
+                    document.querySelectorAll(
+                        'input[name="symptoms"]:checked'
+                    )
+                )
+                .map(
+                    (item) =>
+                        item.value
+                );
+
+
+            const symptoms =
+                checkedSymptoms.length
+                    ? checkedSymptoms
+                    : ["none"];
+
+
+            const payload = {
+
+                dogName:
+                    document.getElementById(
+                        "dogName"
+                    ).value.trim(),
+
+                locationName:
+                    document.getElementById(
+                        "locationName"
+                    ).value.trim(),
+
+                lat:
+                    Number(
+                        document.getElementById(
+                            "lat"
+                        ).value
+                    ),
+
+                lng:
+                    Number(
+                        document.getElementById(
+                            "lng"
+                        ).value
+                    ),
+
+                contact:
+                    document.getElementById(
+                        "contact"
+                    ).value,
+
+                symptoms,
+
+                ateUnusualFood:
+                    document.getElementById(
+                        "ateUnusualFood"
+                    ).checked,
+
+                recentDietChange:
+                    document.getElementById(
+                        "recentDietChange"
+                    ).checked,
+
+            };
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/reports",
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                ),
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to submit report"
+                    );
+
+                }
+
+
+                alert(
+                    "🐾 Report submitted successfully!"
+                );
+
+
+                document
+                    .getElementById(
+                        "reportForm"
+                    )
+                    .reset();
+
+
+                await loadDashboard();
+
+
+                document
+                    .querySelector(
+                        "nav button"
+                    )
+                    .click();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                alert(
+                    "Error: " +
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+loadDashboard();
+
+</script>
+
+</body>
+
+</html>
