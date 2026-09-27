@@ -13,7 +13,7 @@ body{
 font-family:Arial,sans-serif;
 color:#2d210f;
 
-
+```
 background:
     radial-gradient(
         circle at 15% 20%,
@@ -39,6 +39,7 @@ background-attachment:fixed;
 
 position:relative;
 overflow-x:hidden;
+```
 
 }
 
@@ -47,6 +48,7 @@ overflow-x:hidden;
 body::before{
 content:"";
 
+```
 position:fixed;
 
 width:700px;
@@ -67,7 +69,7 @@ border-radius:50%;
 pointer-events:none;
 
 z-index:-2;
-
+```
 
 }
 
@@ -852,7 +854,7 @@ background-size:
 
 @media(max-width:600px){
 
-```
+
 header{
     padding:18px;
 }
@@ -872,6 +874,6 @@ header{
 #map{
     height:350px;
 }
-```
+
 
 }
