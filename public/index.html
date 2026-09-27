@@ -1,8 +1,4 @@
-<!DOCTYPE html> <html lang="en"> <head>
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SENTINEL PAWS</title>
 
 <link rel="stylesheet" href="style.css">
@@ -11,1684 +7,338 @@
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 >
-</head> <body>
-<!-- HEADER -->
-
-<header>
-
-    <div>
-
-        <div class="logo">
-            🐾 SENTINEL PAWS
-        </div>
-
-        <div class="subtitle">
-            Community-driven water contamination early warning system
-        </div>
-
+</head> <body> <header>
+<div>
+    <div class="logo">
+        🐾 SENTINEL PAWS
     </div>
 
-    <div
-        id="serverStatus"
-        class="status"
-    >
-        Checking server...
+    <div class="subtitle">
+        Community-driven water contamination early warning system
+    </div>
+</div>
+
+<div id="serverStatus" class="status">
+    Checking server...
+</div>
+</header> <div class="container">
+<div id="message"></div>
+
+
+<!-- DASHBOARD -->
+
+<div class="cards">
+
+    <div class="card">
+        <div class="card-title">TOTAL REPORTS</div>
+        <div id="totalReports" class="card-value">0</div>
     </div>
 
-</header>
-
-
-<!-- MAIN CONTAINER -->
-
-<div class="container">
-
-
-    <!-- MESSAGE -->
-
-    <div id="message"></div>
-
-
-    <!-- DASHBOARD -->
-
-    <div class="cards">
-
-
-        <div class="card">
-
-            <div class="card-title">
-                TOTAL REPORTS
-            </div>
-
-            <div
-                id="totalReports"
-                class="card-value"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                WATERWAYS
-            </div>
-
-            <div
-                id="totalWaterways"
-                class="card-value"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                HIGH RISK
-            </div>
-
-            <div
-                id="highRisk"
-                class="card-value"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                MEDIUM RISK
-            </div>
-
-            <div
-                id="mediumRisk"
-                class="card-value"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                LOW RISK
-            </div>
-
-            <div
-                id="lowRisk"
-                class="card-value"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-title">
-                SYMPTOMATIC REPORTS
-            </div>
-
-            <div
-                id="symptomaticReports"
-                class="card-value"
-            >
-                0
-            </div>
-
-        </div>
-
-
+    <div class="card">
+        <div class="card-title">WATERWAYS</div>
+        <div id="totalWaterways" class="card-value">0</div>
     </div>
 
-
-    <!-- MAP -->
-
-    <div class="section">
-
-        <h2>
-            🗺️ Waterway Risk Map
-        </h2>
-
-        <div id="map"></div>
-
+    <div class="card">
+        <div class="card-title">HIGH RISK</div>
+        <div id="highRisk" class="card-value">0</div>
     </div>
 
-
-    <!-- REPORT FORM -->
-
-    <div class="section">
-
-        <h2>
-            🐕 Submit a Dog Exposure Report
-        </h2>
-
-
-        <form id="reportForm">
-
-
-            <div class="form-grid">
-
-
-                <div>
-
-                    <label for="dogName">
-                        Dog Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="dogName"
-                        placeholder="Example: Bruno"
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="locationName">
-                        Waterway Name *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="locationName"
-                        placeholder="Example: Local Lake"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="contact">
-                        Contact Type *
-                    </label>
-
-                    <select id="contact">
-
-                        <option value="swam">
-                            Swam
-                        </option>
-
-                        <option value="waded">
-                            Waded
-                        </option>
-
-                        <option value="drank">
-                            Drank
-                        </option>
-
-                        <option value="other">
-                            Other
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div>
-
-                    <label for="lat">
-                        Latitude *
-                    </label>
-
-                    <input
-                        type="number"
-                        id="lat"
-                        step="any"
-                        placeholder="13.0827"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="lng">
-                        Longitude *
-                    </label>
-
-                    <input
-                        type="number"
-                        id="lng"
-                        step="any"
-                        placeholder="80.2707"
-                        required
-                    >
-
-                </div>
-
-
-            </div>
-
-
-            <br>
-
-
-            <!-- SYMPTOMS -->
-
-            <label>
-                Symptoms
-            </label>
-
-
-            <div class="symptoms">
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="none"
-                        checked
-                    >
-
-                    No symptoms
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="vomiting"
-                    >
-
-                    Vomiting
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="diarrhea"
-                    >
-
-                    Diarrhea
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="lethargy"
-                    >
-
-                    Lethargy
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="rash"
-                    >
-
-                    Rash
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="seizure"
-                    >
-
-                    Seizure
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="difficulty breathing"
-                    >
-
-                    Difficulty breathing
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="drooling"
-                    >
-
-                    Drooling
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="loss of appetite"
-                    >
-
-                    Loss of appetite
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="red eyes"
-                    >
-
-                    Red eyes
-
-                </label>
-
-
-                <label class="symptom">
-
-                    <input
-                        type="checkbox"
-                        name="symptom"
-                        value="skin irritation"
-                    >
-
-                    Skin irritation
-
-                </label>
-
-
-            </div>
-
-
-            <!-- ADDITIONAL INFORMATION -->
-
-            <div class="checkbox-row">
-
-
-                <label>
-
-                    <input
-                        type="checkbox"
-                        id="ateUnusualFood"
-                    >
-
-                    Ate unusual food
-
-                </label>
-
-
-                <label>
-
-                    <input
-                        type="checkbox"
-                        id="recentDietChange"
-                    >
-
-                    Recent diet change
-
-                </label>
-
-
-            </div>
-
-
-            <!-- BUTTONS -->
-
-            <div class="button-row">
-
-
-                <button
-                    type="button"
-                    class="secondary"
-                    onclick="getLocation()"
-                >
-
-                    📍 Use My Location
-
-                </button>
-
-
-                <button
-                    type="submit"
-                    class="primary"
-                >
-
-                    🐾 Submit Report
-
-                </button>
-
-
-            </div>
-
-
-        </form>
-
+    <div class="card">
+        <div class="card-title">MEDIUM RISK</div>
+        <div id="mediumRisk" class="card-value">0</div>
     </div>
 
-
-    <!-- RISK SIGNALS -->
-
-    <div class="section">
-
-        <h2>
-            ⚠️ Waterway Risk Signals
-        </h2>
-
-        <div
-            id="clusters"
-            class="clusters"
-        >
-
-            <div class="loading">
-                Loading clusters...
-            </div>
-
-        </div>
-
+    <div class="card">
+        <div class="card-title">LOW RISK</div>
+        <div id="lowRisk" class="card-value">0</div>
     </div>
 
-
-    <!-- RECENT REPORTS -->
-
-    <div class="section">
-
-        <h2>
-            📋 Recent Reports
-        </h2>
-
-        <div id="reports">
-
-            <div class="loading">
-                Loading reports...
-            </div>
-
-        </div>
-
+    <div class="card">
+        <div class="card-title">SYMPTOMATIC REPORTS</div>
+        <div id="symptomaticReports" class="card-value">0</div>
     </div>
-
 
 </div>
 
 
-<!-- FOOTER -->
+<!-- MAP -->
 
-<footer>
+<div class="section">
 
-    SENTINEL PAWS 🐾 |
-    Community water exposure monitoring
+    <h2>🗺️ Waterway Risk Map</h2>
 
-</footer>
+    <div id="map"></div>
 
+</div>
 
-<!-- LEAFLET JS -->
 
-<script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-</script>
+<!-- REPORT FORM -->
 
+<div class="section">
 
-<script>
+    <h2>🐕 Submit a Dog Exposure Report</h2>
 
+    <form id="reportForm">
 
-    const API = "/api";
+        <div class="form-grid">
 
-    let map;
+            <div>
+                <label for="dogName">Dog Name</label>
 
-    let markers = [];
+                <input
+                    type="text"
+                    id="dogName"
+                    placeholder="Example: Bruno"
+                >
+            </div>
 
 
-    /* ========================= */
-    /* INITIALIZE MAP */
-    /* ========================= */
+            <div>
+                <label for="locationName">Waterway Name *</label>
 
-    function initializeMap() {
+                <input
+                    type="text"
+                    id="locationName"
+                    placeholder="Example: Local Lake"
+                    required
+                >
+            </div>
 
-        map = L.map("map").setView(
-            [13.0827, 80.2707],
-            11
-        );
 
+            <div>
+                <label for="contact">Contact Type *</label>
 
-        L.tileLayer(
-            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            {
-                maxZoom: 19,
-                attribution:
-                    "&copy; OpenStreetMap contributors"
-            }
-        ).addTo(map);
+                <select id="contact">
 
-    }
+                    <option value="swam">Swam</option>
+                    <option value="waded">Waded</option>
+                    <option value="drank">Drank</option>
+                    <option value="other">Other</option>
 
+                </select>
+            </div>
 
-    /* ========================= */
-    /* SHOW MESSAGE */
-    /* ========================= */
 
-    function showMessage(message, type) {
+            <div>
+                <label for="lat">Latitude *</label>
 
-        const box =
-            document.getElementById("message");
-
-
-        box.textContent = message;
-
-        box.className = type;
-
-        box.style.display = "block";
-
-
-        setTimeout(function () {
-
-            box.style.display = "none";
-
-        }, 4000);
-
-    }
-
-
-    /* ========================= */
-    /* SERVER STATUS */
-    /* ========================= */
-
-    async function checkServer() {
-
-        const status =
-            document.getElementById("serverStatus");
-
-
-        try {
-
-            const response =
-                await fetch(`${API}/health`);
-
-            const data =
-                await response.json();
-
-
-            if (data.success) {
-
-                status.textContent =
-                    "● Server Online";
-
-            }
-            else {
-
-                status.textContent =
-                    "● Server Error";
-
-            }
-
-        }
-        catch (error) {
-
-            status.textContent =
-                "● Server Offline";
-
-        }
-
-    }
-
-
-    /* ========================= */
-    /* LOAD DASHBOARD */
-    /* ========================= */
-
-    async function loadDashboard() {
-
-        try {
-
-            const response =
-                await fetch(`${API}/dashboard`);
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.error ||
-                    data.message ||
-                    "Dashboard failed"
-                );
-
-            }
-
-
-            const summary =
-                data.summary;
-
-
-            document.getElementById(
-                "totalReports"
-            ).textContent =
-                summary.totalReports;
-
-
-            document.getElementById(
-                "totalWaterways"
-            ).textContent =
-                summary.totalWaterways;
-
-
-            document.getElementById(
-                "highRisk"
-            ).textContent =
-                summary.highRisk;
-
-
-            document.getElementById(
-                "mediumRisk"
-            ).textContent =
-                summary.mediumRisk;
-
-
-            document.getElementById(
-                "lowRisk"
-            ).textContent =
-                summary.lowRisk;
-
-
-            document.getElementById(
-                "symptomaticReports"
-            ).textContent =
-                summary.symptomaticReports;
-
-
-            displayClusters(
-                data.clusters
-            );
-
-
-            displayMap(
-                data.clusters
-            );
-
-        }
-        catch (error) {
-
-            console.error(error);
-
-            showMessage(
-                "Unable to load dashboard: " +
-                error.message,
-                "error"
-            );
-
-        }
-
-    }
-
-
-    /* ========================= */
-    /* DISPLAY CLUSTERS */
-    /* ========================= */
-
-    function displayClusters(clusters) {
-
-        const container =
-            document.getElementById("clusters");
-
-
-        if (
-            !clusters ||
-            clusters.length === 0
-        ) {
-
-            container.innerHTML =
-                "<p>No waterway data available.</p>";
-
-            return;
-
-        }
-
-
-        container.innerHTML =
-            clusters.map(function (cluster) {
-
-
-                let riskClass =
-                    "risk-unknown";
-
-
-                if (
-                    cluster.riskLevel === "high"
-                ) {
-
-                    riskClass =
-                        "risk-high";
-
-                }
-                else if (
-                    cluster.riskLevel === "medium"
-                ) {
-
-                    riskClass =
-                        "risk-medium";
-
-                }
-                else if (
-                    cluster.riskLevel === "low"
-                ) {
-
-                    riskClass =
-                        "risk-low";
-
-                }
-
-
-                return `
-
-                    <div class="cluster">
-
-                        <span class="risk ${riskClass}">
-                            ${String(
-                                cluster.riskLevel
-                            ).toUpperCase()}
-                        </span>
-
-                        <h3>
-                            💧
-                            ${escapeHTML(
-                                cluster.locationName
-                            )}
-                        </h3>
-
-                        <p>
-                            <strong>Status:</strong>
-                            ${escapeHTML(
-                                cluster.riskStatus
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Reports:</strong>
-                            ${cluster.totalLogs}
-                        </p>
-
-                        <p>
-                            <strong>Symptomatic:</strong>
-                            ${cluster.symptomaticLogs}
-                        </p>
-
-                        <p>
-                            <strong>Confirmed:</strong>
-                            ${cluster.confirmedSymptomaticLogs}
-                        </p>
-
-                        <p>
-                            <strong>Symptom Rate:</strong>
-                            ${cluster.symptomRate}%
-                        </p>
-
-                        <p>
-                            <strong>Severe Signals:</strong>
-                            ${cluster.severeSignals}
-                        </p>
-
-                        <p>
-                            <strong>Signal Score:</strong>
-                            ${cluster.signalScore}/100
-                        </p>
-
-                        <p>
-                            <strong>Coordinates:</strong>
-                            ${cluster.lat},
-                            ${cluster.lng}
-                        </p>
-
-                    </div>
-
-                `;
-
-            }).join("");
-
-    }
-
-
-    /* ========================= */
-    /* DISPLAY MAP MARKERS */
-    /* ========================= */
-
-    function displayMap(clusters) {
-
-
-        markers.forEach(function (marker) {
-
-            map.removeLayer(marker);
-
-        });
-
-
-        markers = [];
-
-
-        if (!clusters) {
-
-            return;
-
-        }
-
-
-        clusters.forEach(function (cluster) {
-
-
-            let color = "#555";
-
-
-            if (
-                cluster.riskLevel === "high"
-            ) {
-
-                color = "#d9534f";
-
-            }
-            else if (
-                cluster.riskLevel === "medium"
-            ) {
-
-                color = "#e6a817";
-
-            }
-            else if (
-                cluster.riskLevel === "low"
-            ) {
-
-                color = "#28a745";
-
-            }
-
-
-            const marker =
-                L.circleMarker(
-                    [
-                        cluster.lat,
-                        cluster.lng
-                    ],
-                    {
-                        radius: 12,
-                        color: color,
-                        fillColor: color,
-                        fillOpacity: 0.65
-                    }
-                );
-
-
-            marker.bindPopup(`
-
-                <strong>
-                    ${escapeHTML(
-                        cluster.locationName
-                    )}
-                </strong>
-
-                <br><br>
-
-                Risk:
-                <strong>
-                    ${escapeHTML(
-                        cluster.riskLevel
-                    )}
-                </strong>
-
-                <br>
-
-                Reports:
-                ${cluster.totalLogs}
-
-                <br>
-
-                Symptomatic:
-                ${cluster.symptomaticLogs}
-
-                <br>
-
-                Signal Score:
-                ${cluster.signalScore}/100
-
-            `);
-
-
-            marker.addTo(map);
-
-            markers.push(marker);
-
-        });
-
-    }
-
-
-    /* ========================= */
-    /* LOAD REPORTS */
-    /* ========================= */
-
-    async function loadReports() {
-
-        const container =
-            document.getElementById("reports");
-
-
-        try {
-
-            const response =
-                await fetch(`${API}/reports`);
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.message ||
-                    "Failed to load reports"
-                );
-
-            }
-
-
-            if (
-                !data.reports ||
-                data.reports.length === 0
-            ) {
-
-                container.innerHTML =
-                    "<p>No reports available.</p>";
-
-                return;
-
-            }
-
-
-            container.innerHTML =
-
-                data.reports
-                    .slice()
-                    .reverse()
-                    .map(function (report) {
-
-
-                        const symptoms =
-                            Array.isArray(
-                                report.symptoms
-                            )
-                                ? report.symptoms.join(", ")
-                                : "none";
-
-
-                        const time =
-                            new Date(
-                                report.timestamp
-                            ).toLocaleString();
-
-
-                        return `
-
-                            <div class="report">
-
-                                <div class="report-top">
-
-                                    <div class="report-name">
-
-                                        🐕
-
-                                        ${escapeHTML(
-                                            report.dogName ||
-                                            "Unknown Dog"
-                                        )}
-
-                                    </div>
-
-
-                                    <button
-                                        class="danger"
-                                        onclick="
-                                            deleteReport(
-                                                ${report.id}
-                                            )
-                                        "
-                                    >
-
-                                        Delete
-
-                                    </button>
-
-                                </div>
-
-
-                                <div class="report-details">
-
-                                    <strong>
-                                        Waterway:
-                                    </strong>
-
-                                    ${escapeHTML(
-                                        report.locationName
-                                    )}
-
-                                    <br>
-
-
-                                    <strong>
-                                        Contact:
-                                    </strong>
-
-                                    ${escapeHTML(
-                                        report.contact
-                                    )}
-
-                                    <br>
-
-
-                                    <strong>
-                                        Symptoms:
-                                    </strong>
-
-                                    ${escapeHTML(
-                                        symptoms
-                                    )}
-
-                                    <br>
-
-
-                                    <strong>
-                                        Coordinates:
-                                    </strong>
-
-                                    ${report.lat},
-                                    ${report.lng}
-
-                                    <br>
-
-
-                                    <strong>
-                                        Time:
-                                    </strong>
-
-                                    ${time}
-
-                                </div>
-
-                            </div>
-
-                        `;
-
-                    })
-                    .join("");
-
-        }
-        catch (error) {
-
-            console.error(error);
-
-            container.innerHTML =
-                "<p>Unable to load reports.</p>";
-
-        }
-
-    }
-
-
-    /* ========================= */
-    /* GET LOCATION */
-    /* ========================= */
-
-    function getLocation() {
-
-
-        if (!navigator.geolocation) {
-
-            showMessage(
-                "Geolocation is not supported by this browser.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        showMessage(
-            "Getting your location...",
-            "success"
-        );
-
-
-        navigator.geolocation.getCurrentPosition(
-
-            function (position) {
-
-
-                document.getElementById(
-                    "lat"
-                ).value =
-                    position.coords.latitude
-                        .toFixed(6);
-
-
-                document.getElementById(
-                    "lng"
-                ).value =
-                    position.coords.longitude
-                        .toFixed(6);
-
-
-                showMessage(
-                    "Location detected successfully.",
-                    "success"
-                );
-
-            },
-
-
-            function (error) {
-
-
-                console.error(error);
-
-
-                showMessage(
-                    "Unable to get your location. Enter coordinates manually.",
-                    "error"
-                );
-
-            },
-
-
-            {
-                enableHighAccuracy: true,
-                timeout: 10000,
-                maximumAge: 0
-            }
-
-        );
-
-    }
-
-
-    /* ========================= */
-    /* SYMPTOM CHECKBOXES */
-    /* ========================= */
-
-    document
-        .querySelectorAll(
-            'input[name="symptom"]'
-        )
-        .forEach(function (checkbox) {
-
-
-            checkbox.addEventListener(
-                "change",
-                function () {
-
-
-                    const none =
-                        document.querySelector(
-                            'input[value="none"]'
-                        );
-
-
-                    const others =
-                        document.querySelectorAll(
-                            'input[name="symptom"]:not([value="none"])'
-                        );
-
-
-                    if (
-                        checkbox.value === "none" &&
-                        checkbox.checked
-                    ) {
-
-
-                        others.forEach(
-                            function (item) {
-
-                                item.checked = false;
-
-                            }
-                        );
-
-                    }
-
-
-                    if (
-                        checkbox.value !== "none" &&
-                        checkbox.checked
-                    ) {
-
-                        none.checked = false;
-
-                    }
-
-
-                    let anyOtherChecked =
-                        false;
-
-
-                    others.forEach(
-                        function (item) {
-
-                            if (item.checked) {
-
-                                anyOtherChecked =
-                                    true;
-
-                            }
-
-                        }
-                    );
-
-
-                    if (!anyOtherChecked) {
-
-                        none.checked = true;
-
-                    }
-
-                }
-            );
-
-        });
-
-
-    /* ========================= */
-    /* SUBMIT REPORT */
-    /* ========================= */
-
-    document
-        .getElementById("reportForm")
-        .addEventListener(
-            "submit",
-            async function (event) {
-
-
-                event.preventDefault();
-
-
-                const lat =
-                    Number(
-                        document.getElementById(
-                            "lat"
-                        ).value
-                    );
-
-
-                const lng =
-                    Number(
-                        document.getElementById(
-                            "lng"
-                        ).value
-                    );
-
-
-                const locationName =
-                    document
-                        .getElementById(
-                            "locationName"
-                        )
-                        .value
-                        .trim();
-
-
-                if (
-                    !Number.isFinite(lat) ||
-                    lat < -90 ||
-                    lat > 90
-                ) {
-
-
-                    showMessage(
-                        "Enter a valid latitude.",
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                if (
-                    !Number.isFinite(lng) ||
-                    lng < -180 ||
-                    lng > 180
-                ) {
-
-
-                    showMessage(
-                        "Enter a valid longitude.",
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                if (!locationName) {
-
-
-                    showMessage(
-                        "Enter a waterway name.",
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                const symptoms =
-                    Array.from(
-                        document.querySelectorAll(
-                            'input[name="symptom"]:checked'
-                        )
-                    )
-                    .map(function (checkbox) {
-
-                        return checkbox.value;
-
-                    });
-
-
-                const report = {
-
-                    lat: lat,
-
-                    lng: lng,
-
-                    locationName:
-                        locationName,
-
-                    dogName:
-                        document
-                            .getElementById(
-                                "dogName"
-                            )
-                            .value
-                            .trim(),
-
-                    contact:
-                        document
-                            .getElementById(
-                                "contact"
-                            )
-                            .value,
-
-                    symptoms:
-                        symptoms.length
-                            ? symptoms
-                            : ["none"],
-
-                    ateUnusualFood:
-                        document
-                            .getElementById(
-                                "ateUnusualFood"
-                            )
-                            .checked,
-
-                    recentDietChange:
-                        document
-                            .getElementById(
-                                "recentDietChange"
-                            )
-                            .checked
-
-                };
-
-
-                try {
-
-
-                    const response =
-                        await fetch(
-                            `${API}/reports`,
-                            {
-                                method: "POST",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body:
-                                    JSON.stringify(
-                                        report
-                                    )
-                            }
-                        );
-
-
-                    const data =
-                        await response.json();
-
-
-                    if (!response.ok) {
-
-
-                        throw new Error(
-                            data.message ||
-                            "Report submission failed"
-                        );
-
-                    }
-
-
-                    showMessage(
-                        "Report submitted successfully 🐾",
-                        "success"
-                    );
-
-
-                    document
-                        .getElementById(
-                            "reportForm"
-                        )
-                        .reset();
-
-
-                    document.querySelector(
-                        'input[value="none"]'
-                    ).checked = true;
-
-
-                    await loadDashboard();
-
-                    await loadReports();
-
-                }
-                catch (error) {
-
-
-                    console.error(error);
-
-
-                    showMessage(
-                        error.message,
-                        "error"
-                    );
-
-                }
-
-            }
-        );
-
-
-    /* ========================= */
-    /* DELETE REPORT */
-    /* ========================= */
-
-    async function deleteReport(id) {
-
-
-        if (
-            !confirm(
-                "Delete this report?"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        try {
-
-
-            const response =
-                await fetch(
-                    `${API}/reports/${id}`,
-                    {
-                        method: "DELETE"
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
-
-                throw new Error(
-                    data.message ||
-                    "Delete failed"
-                );
-
-            }
-
-
-            showMessage(
-                "Report deleted successfully.",
-                "success"
-            );
-
-
-            await loadDashboard();
-
-            await loadReports();
-
-        }
-        catch (error) {
-
-
-            console.error(error);
-
-
-            showMessage(
-                error.message,
-                "error"
-            );
-
-        }
-
-    }
-
-
-    /* ========================= */
-    /* ESCAPE HTML */
-    /* ========================= */
-
-    function escapeHTML(value) {
-
-        return String(value || "")
-
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-
-            .replace(
-                /</g,
-                "&lt;"
-            )
-
-            .replace(
-                />/g,
-                "&gt;"
-            )
-
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-
-            .replace(
-                /'/g,
-                "&#039;"
-            );
-
-    }
-
-
-    /* ========================= */
-    /* START */
-    /* ========================= */
-
-    initializeMap();
-
-    checkServer();
-
-    loadDashboard();
-
-    loadReports();
-
-
-    /* ========================= */
-    /* AUTO REFRESH */
-    /* ========================= */
-
-    setInterval(
-        function () {
-
-            loadDashboard();
-
-            loadReports();
-
-        },
-        30000
-    );
-
-
-</script>
-</body> </html>
+                <input
+                    type="number"
+                    id="lat"
+                    step="any"
+                    placeholder="13.0827"
+                    required
+                >
+            </div>
+
+
+            <div>
+                <label for="lng">Longitude *</label>
+
+                <input
+                    type="number"
+                    id="lng"
+                    step="any"
+                    placeholder="80.2707"
+                    required
+                >
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <!-- SYMPTOMS -->
+
+        <label>Symptoms</label>
+
+        <div class="symptoms">
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="none"
+                    checked
+                >
+                No symptoms
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="vomiting"
+                >
+                Vomiting
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="diarrhea"
+                >
+                Diarrhea
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="lethargy"
+                >
+                Lethargy
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="rash"
+                >
+                Rash
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="seizure"
+                >
+                Seizure
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="difficulty breathing"
+                >
+                Difficulty breathing
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="drooling"
+                >
+                Drooling
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="loss of appetite"
+                >
+                Loss of appetite
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="red eyes"
+                >
+                Red eyes
+            </label>
+
+            <label class="symptom">
+                <input
+                    type="checkbox"
+                    name="symptom"
+                    value="skin irritation"
+                >
+                Skin irritation
+            </label>
+
+        </div>
+
+
+        <!-- ADDITIONAL INFORMATION -->
+
+        <div class="checkbox-row">
+
+            <label>
+                <input
+                    type="checkbox"
+                    id="ateUnusualFood"
+                >
+                Ate unusual food
+            </label>
+
+            <label>
+                <input
+                    type="checkbox"
+                    id="recentDietChange"
+                >
+                Recent diet change
+            </label>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="secondary"
+                onclick="getLocation()"
+            >
+                📍 Use My Location
+            </button>
+
+            <button
+                type="submit"
+                class="primary"
+            >
+                🐾 Submit Report
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- RISK SIGNALS -->
+
+<div class="section">
+
+    <h2>⚠️ Waterway Risk Signals</h2>
+
+    <div id="clusters" class="clusters">
+
+        <div class="loading">
+            Loading clusters...
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RECENT REPORTS -->
+
+<div class="section">
+
+    <h2>📋 Recent Reports</h2>
+
+    <div id="reports">
+
+        <div class="loading">
+            Loading reports...
+        </div>
+
+    </div>
+
+</div>
+</div> <!-- FOOTER --> <footer> SENTINEL PAWS 🐾 | Community water exposure monitoring </footer> <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <script> const API = "/api"; let map; let markers = []; /* ========================= INITIALIZE MAP ========================= */ function initializeMap() { map = L.map("map").setView( [13.0827, 80.2707], 11 ); L.tileLayer( "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" } ).addTo(map); } /* ========================= SHOW MESSAGE ========================= */ function showMessage(message, type) { const box = document.getElementById("message"); box.textContent = message; box.className = type; box.style.display = "block"; setTimeout(function() { box.style.display = "none"; }, 4000); } /* ========================= SERVER STATUS ========================= */ async function checkServer() { const status = document.getElementById("serverStatus"); try { const response = await fetch(API + "/health"); const data = await response.json(); if (data.success) { status.textContent = "● Server Online"; } else { status.textContent = "● Server Error"; } } catch (error) { status.textContent = "● Server Offline"; } } /* ========================= LOAD DASHBOARD ========================= */ async function loadDashboard() { try { const response = await fetch(API + "/dashboard"); const data = await response.json(); if (!response.ok) { throw new Error( data.error || data.message || "Dashboard failed" ); } const summary = data.summary; document.getElementById("totalReports").textContent = summary.totalReports; document.getElementById("totalWaterways").textContent = summary.totalWaterways; document.getElementById("highRisk").textContent = summary.highRisk; document.getElementById("mediumRisk").textContent = summary.mediumRisk; document.getElementById("lowRisk").textContent = summary.lowRisk; document.getElementById("symptomaticReports").textContent = summary.symptomaticReports; displayClusters(data.clusters); displayMap(data.clusters); } catch (error) { console.error(error); showMessage( "Unable to load dashboard: " + error.message, "error" ); } } /* ========================= DISPLAY CLUSTERS ========================= */ function displayClusters(clusters) { const container = document.getElementById("clusters"); if (!clusters || clusters.length === 0) { container.innerHTML = "<p>No waterway data available.</p>"; return; } let html = ""; clusters.forEach(function(cluster) { let riskClass = "risk-unknown"; if (cluster.riskLevel === "high") { riskClass = "risk-high"; } else if (cluster.riskLevel === "medium") { riskClass = "risk-medium"; } else if (cluster.riskLevel === "low") { riskClass = "risk-low"; } html += '<div class="cluster">' + '<span class="risk ' + riskClass + '">' + String(cluster.riskLevel).toUpperCase() + '</span>' + '<h3>💧 ' + escapeHTML(cluster.locationName) + '</h3>' + '<p><strong>Status:</strong> ' + escapeHTML(cluster.riskStatus) + '</p>' + '<p><strong>Reports:</strong> ' + cluster.totalLogs + '</p>' + '<p><strong>Symptomatic:</strong> ' + cluster.symptomaticLogs + '</p>' + '<p><strong>Confirmed:</strong> ' + cluster.confirmedSymptomaticLogs + '</p>' + '<p><strong>Symptom Rate:</strong> ' + cluster.symptomRate + '%</p>' + '<p><strong>Severe Signals:</strong> ' + cluster.severeSignals + '</p>' + '<p><strong>Signal Score:</strong> ' + cluster.signalScore + '/100</p>' + '<p><strong>Coordinates:</strong> ' + cluster.lat + ', ' + cluster.lng + '</p>' + '</div>'; }); container.innerHTML = html; } /* ========================= DISPLAY MAP ========================= */ function displayMap(clusters) { markers.forEach(function(marker) { map.removeLayer(marker); }); markers = []; if (!clusters) { return; } clusters.forEach(function(cluster) { let color = "#555"; if (cluster.riskLevel === "high") { color = "#d9534f"; } else if (cluster.riskLevel === "medium") { color = "#e6a817"; } else if (cluster.riskLevel === "low") { color = "#28a745"; } const marker = L.circleMarker( [ cluster.lat, cluster.lng ], { radius: 12, color: color, fillColor: color, fillOpacity: 0.65 } ); const popup = "<strong>" + escapeHTML(cluster.locationName) + "</strong>" + "<br><br>" + "Risk: <strong>" + escapeHTML(cluster.riskLevel) + "</strong>" + "<br>" + "Reports: " + cluster.totalLogs + "<br>" + "Symptomatic: " + cluster.symptomaticLogs + "<br>" + "Signal Score: " + cluster.signalScore + "/100"; marker.bindPopup(popup); marker.addTo(map); markers.push(marker); }); } /* ========================= LOAD REPORTS ========================= */ async function loadReports() { const container = document.getElementById("reports"); try { const response = await fetch(API + "/reports"); const data = await response.json(); if (!response.ok) { throw new Error( data.message || "Failed to load reports" ); } if (!data.reports || data.reports.length === 0) { container.innerHTML = "<p>No reports available.</p>"; return; } let html = ""; data.reports .slice() .reverse() .forEach(function(report) { const symptoms = Array.isArray(report.symptoms) ? report.symptoms.join(", ") : "none"; const time = new Date( report.timestamp ).toLocaleString(); html += '<div class="report">' + '<div class="report-top">' + '<div class="report-name">' + '🐕 ' + escapeHTML( report.dogName || "Unknown Dog" ) + '</div>' + '<button ' + 'class="danger" ' + 'onclick="deleteReport(' + report.id + ')"' + '>' + 'Delete' + '</button>' + '</div>' + '<div class="report-details">' + '<strong>Waterway:</strong> ' + escapeHTML( report.locationName ) + '<br>' + '<strong>Contact:</strong> ' + escapeHTML( report.contact ) + '<br>' + '<strong>Symptoms:</strong> ' + escapeHTML( symptoms ) + '<br>' + '<strong>Coordinates:</strong> ' + report.lat + ', ' + report.lng + '<br>' + '<strong>Time:</strong> ' + time + '</div>' + '</div>'; }); container.innerHTML = html; } catch (error) { console.error(error); container.innerHTML = "<p>Unable to load reports.</p>"; } } /* ========================= GET LOCATION ========================= */ function getLocation() { if (!navigator.geolocation) { showMessage( "Geolocation is not supported by this browser.", "error" ); return; } showMessage( "Getting your location...", "success" ); navigator.geolocation.getCurrentPosition( function(position) { document.getElementById("lat").value = position.coords.latitude.toFixed(6); document.getElementById("lng").value = position.coords.longitude.toFixed(6); showMessage( "Location detected successfully.", "success" ); }, function(error) { console.error(error); showMessage( "Unable to get your location. Enter coordinates manually.", "error" ); }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 } ); } /* ========================= SYMPTOM CHECKBOXES ========================= */ document .querySelectorAll('input[name="symptom"]') .forEach(function(checkbox) { checkbox.addEventListener( "change", function() { const none = document.querySelector( 'input[name="symptom"][value="none"]' ); const others = document.querySelectorAll( 'input[name="symptom"]:not([value="none"])' ); if ( checkbox.value === "none" && checkbox.checked ) { others.forEach(function(item) { item.checked = false; }); } if ( checkbox.value !== "none" && checkbox.checked ) { none.checked = false; } let anyOtherChecked = false; others.forEach(function(item) { if (item.checked) { anyOtherChecked = true; } }); if (!anyOtherChecked) { none.checked = true; } } ); }); /* ========================= SUBMIT REPORT ========================= */ document .getElementById("reportForm") .addEventListener( "submit", async function(event) { event.preventDefault(); const lat = Number( document.getElementById("lat").value ); const lng = Number( document.getElementById("lng").value ); const locationName = document .getElementById("locationName") .value .trim(); if ( !Number.isFinite(lat) || lat < -90 || lat > 90 ) { showMessage( "Enter a valid latitude.", "error" ); return; } if ( !Number.isFinite(lng) || lng < -180 || lng > 180 ) { showMessage( "Enter a valid longitude.", "error" ); return; } if (!locationName) { showMessage( "Enter a waterway name.", "error" ); return; } const symptoms = Array.from( document.querySelectorAll( 'input[name="symptom"]:checked' ) ).map(function(checkbox) { return checkbox.value; }); const report = { lat: lat, lng: lng, locationName: locationName, dogName: document .getElementById("dogName") .value .trim(), contact: document .getElementById("contact") .value, symptoms: symptoms.length ? symptoms : ["none"], ateUnusualFood: document .getElementById("ateUnusualFood") .checked, recentDietChange: document .getElementById("recentDietChange") .checked }; try { const response = await fetch( API + "/reports", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(report) } ); const data = await response.json(); if (!response.ok) { throw new Error( data.message || "Report submission failed" ); } showMessage( "Report submitted successfully 🐾", "success" ); document .getElementById("reportForm") .reset(); document.querySelector( 'input[name="symptom"][value="none"]' ).checked = true; await loadDashboard(); await loadReports(); } catch (error) { console.error(error); showMessage( error.message, "error" ); } } ); /* ========================= DELETE REPORT ========================= */ async function deleteReport(id) { if (!confirm("Delete this report?")) { return; } try { const response = await fetch( API + "/reports/" + id, { method: "DELETE" } ); const data = await response.json(); if (!response.ok) { throw new Error( data.message || "Delete failed" ); } showMessage( "Report deleted successfully.", "success" ); await loadDashboard(); await loadReports(); } catch (error) { console.error(error); showMessage( error.message, "error" ); } } /* ========================= ESCAPE HTML ========================= */ function escapeHTML(value) { return String(value || "") .replace(/&/g, "&amp;") .replace(/</g, "&lt;") .replace(/>/g, "&gt;") .replace(/"/g, "&quot;") .replace(/'/g, "&#039;"); } /* ========================= START ========================= */ initializeMap(); checkServer(); loadDashboard(); loadReports(); /* ========================= AUTO REFRESH ========================= */ setInterval( function() { loadDashboard(); loadReports(); checkServer(); }, 30000 ); </script> </body> </html>
