@@ -4,1897 +4,2315 @@
 
 <head>
 
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>SENTINEL PAWS</title>
 
-<!-- Leaflet Map -->
-<link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
->
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+/* ============================= */
+/* BASIC */
+/* ============================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,
+body{
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    color:#2d210f;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+
+    background-image:
+        radial-gradient(
+            circle at 20px 20px,
+            rgba(88,48,12,.08) 0 7px,
+            transparent 8px
+        ),
+
+        radial-gradient(
+            circle at 42px 10px,
+            rgba(88,48,12,.08) 0 5px,
+            transparent 6px
+        ),
+
+        radial-gradient(
+            circle at 8px 42px,
+            rgba(88,48,12,.08) 0 5px,
+            transparent 6px
+        ),
+
+        radial-gradient(
+            circle at 35px 42px,
+            rgba(88,48,12,.08) 0 5px,
+            transparent 6px
+        ),
+
+        linear-gradient(
+            135deg,
+            #f5c45b 0%,
+            #e9a83d 40%,
+            #d98b2b 75%,
+            #c87520 100%
+        );
+
+    background-size:
+        70px 70px,
+        70px 70px,
+        70px 70px,
+        70px 70px,
+        100% 100%;
+
+    background-attachment:fixed;
+}
+
+
+/* ============================= */
+/* DECORATIVE BACKGROUND */
+/* ============================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:650px;
+    height:650px;
+
+    top:-250px;
+    right:-200px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,245,205,.35) 0 35%,
+            transparent 36%
+        );
+
+    pointer-events:none;
+
+    z-index:-1;
+}
+
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    left:-10%;
+    bottom:-180px;
+
+    width:120%;
+    height:380px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(113,58,12,.08),
+            rgba(92,43,8,.30)
+        );
+
+    border-radius:
+        50% 50% 0 0 /
+        30% 30% 0 0;
+
+    pointer-events:none;
+
+    z-index:-1;
+}
+
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+
+header{
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(73,39,10,.96),
+            rgba(111,57,12,.92)
+        );
+
+    color:white;
+
+    padding:20px 30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(62,31,5,.28);
+}
+
+
+.logo{
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    letter-spacing:.5px;
+}
+
+
+.subtitle{
+
+    font-size:13px;
+
+    opacity:.9;
+
+    margin-top:5px;
+}
+
+
+.status{
+
+    background:#3d7454;
+
+    padding:8px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.18);
+}
+
+
+/* ============================= */
+/* MAIN CONTAINER */
+/* ============================= */
+
+.container{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:25px;
+}
+
+
+/* ============================= */
+/* DASHBOARD CARDS */
+/* ============================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(170px,1fr)
+        );
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+
+.card{
+
+    background:
+        rgba(255,250,239,.94);
+
+    padding:20px;
+
+    border-radius:16px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.55);
+
+    box-shadow:
+        0 7px 22px
+        rgba(85,45,8,.20);
+
+    backdrop-filter:blur(8px);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 12px 28px
+        rgba(85,45,8,.25);
+}
+
+
+.card-title{
+
+    font-size:13px;
+
+    color:#7b6548;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+}
+
+
+.card-value{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    color:#673b0e;
+}
+
+
+/* ============================= */
+/* SECTIONS */
+/* ============================= */
+
+.section{
+
+    background:
+        rgba(255,252,245,.94);
+
+    padding:22px;
+
+    border-radius:18px;
+
+    margin-bottom:25px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.55);
+
+    box-shadow:
+        0 7px 25px
+        rgba(80,40,5,.20);
+
+    backdrop-filter:blur(10px);
+}
+
+
+.section h2{
+
+    margin-bottom:18px;
+
+    color:#63370b;
+}
+
+
+/* ============================= */
+/* MAP */
+/* ============================= */
+
+#map{
+
+    height:430px;
+
+    width:100%;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    border:
+        3px solid
+        rgba(177,113,35,.25);
+}
+
+
+/* ============================= */
+/* FORM */
+/* ============================= */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px,1fr)
+        );
+
+    gap:15px;
+}
+
+
+label{
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-bottom:6px;
+
+    font-size:14px;
+
+    color:#533514;
+}
+
+
+input,
+select{
+
+    width:100%;
+
+    padding:11px;
+
+    border:
+        1px solid
+        #d6c3a4;
+
+    border-radius:9px;
+
+    font-size:14px;
+
+    background:
+        rgba(255,255,255,.95);
+
+    color:#332514;
+
+    outline:none;
+
+    transition:
+        border .2s ease,
+        box-shadow .2s ease;
+}
+
+
+input:focus,
+select:focus{
+
+    border-color:#b97822;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(185,120,34,.15);
+}
+
+
+/* ============================= */
+/* SYMPTOMS */
+/* ============================= */
+
+.symptoms{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(170px,1fr)
+        );
+
+    gap:8px;
+
+    margin-top:8px;
+}
+
+
+.symptom{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7e8,
+            #f5e5c9
+        );
+
+    padding:10px;
+
+    border-radius:9px;
+
+    font-size:13px;
+
+    border:
+        1px solid
+        #ead5b3;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+
+.symptom:hover{
+
+    background:#f8e3bd;
+
+    transform:translateY(-1px);
+}
+
+
+.symptom input{
+
+    width:auto;
+
+    margin-right:6px;
+}
+
+
+/* ============================= */
+/* CHECKBOXES */
+/* ============================= */
+
+.checkbox-row{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-top:18px;
+
+    flex-wrap:wrap;
+}
+
+
+.checkbox-row label{
+
+    font-weight:normal;
+}
+
+
+.checkbox-row input{
+
+    width:auto;
+
+    margin-right:5px;
+}
+
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+button{
+
+    border:none;
+
+    padding:12px 18px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    font-size:14px;
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+
+button:hover{
+
+    transform:translateY(-1px);
+}
+
+
+.primary{
+
+    background:
+        linear-gradient(
+            135deg,
+            #75410c,
+            #9b5a14
+        );
+
+    color:white;
+
+    box-shadow:
+        0 4px 12px
+        rgba(105,53,8,.25);
+}
+
+
+.primary:hover{
+
+    background:
+        linear-gradient(
+            135deg,
+            #5e3208,
+            #80470c
+        );
+}
+
+
+.secondary{
+
+    background:#f0dfc2;
+
+    color:#63370b;
+
+    border:
+        1px solid
+        #d8bd93;
+}
+
+
+.secondary:hover{
+
+    background:#e6cda6;
+}
+
+
+.danger{
+
+    background:#d9534f;
+
+    color:white;
+}
+
+
+.button-row{
+
+    margin-top:20px;
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+
+/* ============================= */
+/* CLUSTERS */
+/* ============================= */
+
+.clusters{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px,1fr)
+        );
+
+    gap:15px;
+}
+
+
+.cluster{
+
+    border:
+        1px solid
+        #eadbc5;
+
+    border-radius:13px;
+
+    padding:17px;
+
+    background:
+        rgba(255,250,240,.82);
+
+    box-shadow:
+        0 3px 12px
+        rgba(90,45,5,.08);
+}
+
+
+.cluster h3{
+
+    margin-bottom:8px;
+
+    color:#63370b;
+}
+
+
+.cluster p{
+
+    margin:6px 0;
+
+    font-size:14px;
+}
+
+
+/* ============================= */
+/* RISK */
+/* ============================= */
+
+.risk{
+
+    display:inline-block;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+}
+
+
+.risk-high{
+
+    background:#ffdede;
+
+    color:#a32121;
+}
+
+
+.risk-medium{
+
+    background:#fff0c7;
+
+    color:#856404;
+}
+
+
+.risk-low{
+
+    background:#dff5e8;
+
+    color:#176b3a;
+}
+
+
+.risk-unknown{
+
+    background:#e8e8e8;
+
+    color:#555;
+}
+
+
+/* ============================= */
+/* REPORTS */
+/* ============================= */
+
+.report{
+
+    border-bottom:
+        1px solid
+        #eadfce;
+
+    padding:15px 0;
+}
+
+
+.report:last-child{
+
+    border-bottom:none;
+}
+
+
+.report-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+
+.report-name{
+
+    font-weight:bold;
+
+    color:#63370b;
+}
+
+
+.report-details{
+
+    font-size:13px;
+
+    color:#776b5c;
+
+    margin-top:7px;
+
+    line-height:1.6;
+}
+
+
+/* ============================= */
+/* MESSAGE */
+/* ============================= */
+
+#message{
+
+    display:none;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    margin-bottom:15px;
+
+    font-size:14px;
+}
+
+
+.success{
+
+    background:#dff5e8;
+
+    color:#176b3a;
+}
+
+
+.error{
+
+    background:#ffdede;
+
+    color:#a32121;
+}
+
+
+.loading{
+
+    color:#776b5c;
+
+    padding:15px 0;
+}
+
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:white;
+
+    font-size:13px;
+
+    background:
+        rgba(76,40,10,.72);
+
+    box-shadow:
+        0 -5px 18px
+        rgba(70,35,5,.15);
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media(max-width:600px){
+
+    header{
+
+        padding:18px;
     }
 
-    body {
-        font-family: Arial, sans-serif;
-        background: #f4f7f6;
-        color: #17201d;
+    .container{
+
+        padding:15px;
     }
 
-    /* ================= HEADER ================= */
+    .card-value{
 
-    header {
-        background: #12372f;
-        color: white;
-        padding: 20px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
+        font-size:25px;
     }
 
-    .logo {
-        font-size: 26px;
-        font-weight: bold;
+    .logo{
+
+        font-size:23px;
     }
 
-    .subtitle {
-        font-size: 13px;
-        opacity: 0.8;
-        margin-top: 4px;
+    #map{
+
+        height:350px;
     }
 
-    .status {
-        background: #1f5d4f;
-        padding: 8px 14px;
-        border-radius: 20px;
-        font-size: 13px;
-    }
-
-    /* ================= CONTAINER ================= */
-
-    .container {
-        max-width: 1250px;
-        margin: auto;
-        padding: 25px;
-    }
-
-    /* ================= CARDS ================= */
-
-    .cards {
-        display: grid;
-        grid-template-columns:
-            repeat(auto-fit, minmax(170px, 1fr));
-        gap: 15px;
-        margin-bottom: 25px;
-    }
-
-    .card {
-        background: white;
-        padding: 20px;
-        border-radius: 14px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
-
-    .card-title {
-        font-size: 13px;
-        color: #66736e;
-        margin-bottom: 8px;
-    }
-
-    .card-value {
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    /* ================= SECTIONS ================= */
-
-    .section {
-        background: white;
-        padding: 22px;
-        border-radius: 14px;
-        margin-bottom: 25px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
-
-    .section h2 {
-        margin-bottom: 18px;
-        color: #12372f;
-    }
-
-    /* ================= MAP ================= */
-
-    #map {
-        height: 430px;
-        width: 100%;
-        border-radius: 12px;
-    }
-
-    /* ================= FORM ================= */
-
-    .form-grid {
-        display: grid;
-        grid-template-columns:
-            repeat(auto-fit, minmax(220px, 1fr));
-        gap: 15px;
-    }
-
-    label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 6px;
-        font-size: 14px;
-    }
-
-    input,
-    select {
-        width: 100%;
-        padding: 11px;
-        border: 1px solid #ccd5d1;
-        border-radius: 8px;
-        font-size: 14px;
-    }
-
-    .symptoms {
-        display: grid;
-        grid-template-columns:
-            repeat(auto-fit, minmax(170px, 1fr));
-        gap: 8px;
-        margin-top: 8px;
-    }
-
-    .symptom {
-        background: #f4f7f6;
-        padding: 9px;
-        border-radius: 8px;
-        font-size: 13px;
-    }
-
-    .symptom input {
-        width: auto;
-        margin-right: 6px;
-    }
-
-    .checkbox-row {
-        display: flex;
-        gap: 20px;
-        margin-top: 18px;
-        flex-wrap: wrap;
-    }
-
-    .checkbox-row label {
-        font-weight: normal;
-    }
-
-    .checkbox-row input {
-        width: auto;
-        margin-right: 5px;
-    }
-
-    /* ================= BUTTONS ================= */
-
-    button {
-        border: none;
-        padding: 12px 18px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .primary {
-        background: #176b57;
-        color: white;
-    }
-
-    .primary:hover {
-        background: #125543;
-    }
-
-    .secondary {
-        background: #e8efec;
-        color: #12372f;
-    }
-
-    .danger {
-        background: #d9534f;
-        color: white;
-    }
-
-    .button-row {
-        margin-top: 20px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    /* ================= CLUSTERS ================= */
-
-    .clusters {
-        display: grid;
-        grid-template-columns:
-            repeat(auto-fit, minmax(280px, 1fr));
-        gap: 15px;
-    }
-
-    .cluster {
-        border: 1px solid #e0e6e3;
-        border-radius: 12px;
-        padding: 17px;
-    }
-
-    .cluster h3 {
-        margin-bottom: 8px;
-    }
-
-    .cluster p {
-        margin: 6px 0;
-        font-size: 14px;
-    }
-
-    .risk {
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .risk-high {
-        background: #ffdede;
-        color: #a32121;
-    }
-
-    .risk-medium {
-        background: #fff0c7;
-        color: #856404;
-    }
-
-    .risk-low {
-        background: #dff5e8;
-        color: #176b3a;
-    }
-
-    .risk-unknown {
-        background: #e8e8e8;
-        color: #555;
-    }
-
-    /* ================= REPORTS ================= */
-
-    .report {
-        border-bottom: 1px solid #e4e8e6;
-        padding: 15px 0;
-    }
-
-    .report:last-child {
-        border-bottom: none;
-    }
-
-    .report-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .report-name {
-        font-weight: bold;
-    }
-
-    .report-details {
-        font-size: 13px;
-        color: #66736e;
-        margin-top: 7px;
-        line-height: 1.6;
-    }
-
-    /* ================= MESSAGE ================= */
-
-    #message {
-        display: none;
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        font-size: 14px;
-    }
-
-    .success {
-        background: #dff5e8;
-        color: #176b3a;
-    }
-
-    .error {
-        background: #ffdede;
-        color: #a32121;
-    }
-
-    /* ================= LOADING ================= */
-
-    .loading {
-        color: #66736e;
-        padding: 15px 0;
-    }
-
-    /* ================= FOOTER ================= */
-
-    footer {
-        text-align: center;
-        padding: 25px;
-        color: #66736e;
-        font-size: 13px;
-    }
-
-    @media (max-width: 600px) {
-
-        header {
-            padding: 18px;
-        }
-
-        .container {
-            padding: 15px;
-        }
-
-        .card-value {
-            font-size: 25px;
-        }
-
-    }
+}
 
 </style>
-```
 
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
 
-```
 <div>
 
-    <div class="logo">
-        🐾 SENTINEL PAWS
-    </div>
+<div class="logo">
+🐾 SENTINEL PAWS
+</div>
 
-    <div class="subtitle">
-        Community-driven water contamination early warning system
-    </div>
+<div class="subtitle">
+Community-driven water contamination early warning system
+</div>
 
 </div>
 
-<div
-    id="serverStatus"
-    class="status"
->
-    Checking server...
+<div id="serverStatus" class="status">
+Checking server...
 </div>
-```
 
 </header>
 
 <div class="container">
 
-```
-<!-- ================= MESSAGE ================= -->
-
 <div id="message"></div>
 
-
-<!-- ================= DASHBOARD ================= -->
+<!-- DASHBOARD -->
 
 <div class="cards">
 
-    <div class="card">
+<div class="card">
 
-        <div class="card-title">
-            TOTAL REPORTS
-        </div>
+<div class="card-title">
+TOTAL REPORTS
+</div>
 
-        <div
-            id="totalReports"
-            class="card-value"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            WATERWAYS
-        </div>
-
-        <div
-            id="totalWaterways"
-            class="card-value"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            HIGH RISK
-        </div>
-
-        <div
-            id="highRisk"
-            class="card-value"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            MEDIUM RISK
-        </div>
-
-        <div
-            id="mediumRisk"
-            class="card-value"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            LOW RISK
-        </div>
-
-        <div
-            id="lowRisk"
-            class="card-value"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            SYMPTOMATIC REPORTS
-        </div>
-
-        <div
-            id="symptomaticReports"
-            class="card-value"
-        >
-            0
-        </div>
-
-    </div>
+<div id="totalReports"
+class="card-value">
+0
+</div>
 
 </div>
 
+<div class="card">
 
-<!-- ================= MAP ================= -->
+<div class="card-title">
+WATERWAYS
+</div>
+
+<div id="totalWaterways"
+class="card-value">
+0
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+HIGH RISK
+</div>
+
+<div id="highRisk"
+class="card-value">
+0
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+MEDIUM RISK
+</div>
+
+<div id="mediumRisk"
+class="card-value">
+0
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+LOW RISK
+</div>
+
+<div id="lowRisk"
+class="card-value">
+0
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+SYMPTOMATIC REPORTS
+</div>
+
+<div id="symptomaticReports"
+class="card-value">
+0
+</div>
+
+</div>
+
+</div>
+
+<!-- MAP -->
 
 <div class="section">
 
-    <h2>
-        🗺️ Waterway Risk Map
-    </h2>
+<h2>
+🗺️ Waterway Risk Map
+</h2>
 
-    <div id="map"></div>
+<div id="map"></div>
 
 </div>
 
-
-<!-- ================= REPORT FORM ================= -->
+<!-- REPORT FORM -->
 
 <div class="section">
 
-    <h2>
-        🐕 Submit a Dog Exposure Report
-    </h2>
+<h2>
+🐕 Submit a Dog Exposure Report
+</h2>
 
-    <form id="reportForm">
+<form id="reportForm">
 
+<div class="form-grid">
 
-        <div class="form-grid">
+<div>
 
+<label>
+Dog Name
+</label>
 
-            <div>
-
-                <label>
-                    Dog Name
-                </label>
-
-                <input
-                    type="text"
-                    id="dogName"
-                    placeholder="Example: Bruno"
-                >
-
-            </div>
-
-
-            <div>
-
-                <label>
-                    Waterway Name *
-                </label>
-
-                <input
-                    type="text"
-                    id="locationName"
-                    placeholder="Example: Local Lake"
-                    required
-                >
-
-            </div>
-
-
-            <div>
-
-                <label>
-                    Contact Type *
-                </label>
-
-                <select id="contact">
-
-                    <option value="swam">
-                        Swam
-                    </option>
-
-                    <option value="waded">
-                        Waded
-                    </option>
-
-                    <option value="drank">
-                        Drank
-                    </option>
-
-                    <option value="other">
-                        Other
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div>
-
-                <label>
-                    Latitude *
-                </label>
-
-                <input
-                    type="number"
-                    id="lat"
-                    step="any"
-                    placeholder="40.7829"
-                    required
-                >
-
-            </div>
-
-
-            <div>
-
-                <label>
-                    Longitude *
-                </label>
-
-                <input
-                    type="number"
-                    id="lng"
-                    step="any"
-                    placeholder="-73.9654"
-                    required
-                >
-
-            </div>
-
-        </div>
-
-
-        <br>
-
-
-        <label>
-            Symptoms
-        </label>
-
-
-        <div class="symptoms">
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="none"
-                    checked
-                >
-                No symptoms
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="vomiting"
-                >
-                Vomiting
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="diarrhea"
-                >
-                Diarrhea
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="lethargy"
-                >
-                Lethargy
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="rash"
-                >
-                Rash
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="seizure"
-                >
-                Seizure
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="difficulty breathing"
-                >
-                Difficulty breathing
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="drooling"
-                >
-                Drooling
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="loss of appetite"
-                >
-                Loss of appetite
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="red eyes"
-                >
-                Red eyes
-            </label>
-
-
-            <label class="symptom">
-                <input
-                    type="checkbox"
-                    name="symptom"
-                    value="skin irritation"
-                >
-                Skin irritation
-            </label>
-
-
-        </div>
-
-
-        <div class="checkbox-row">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="ateUnusualFood"
-                >
-
-                Ate unusual food
-
-            </label>
-
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="recentDietChange"
-                >
-
-                Recent diet change
-
-            </label>
-
-        </div>
-
-
-        <div class="button-row">
-
-            <button
-                type="button"
-                class="secondary"
-                onclick="getLocation()"
-            >
-                📍 Use My Location
-            </button>
-
-
-            <button
-                type="submit"
-                class="primary"
-            >
-                🐾 Submit Report
-            </button>
-
-        </div>
-
-
-    </form>
+<input
+type="text"
+id="dogName"
+placeholder="Example: Bruno">
 
 </div>
 
+<div>
 
-<!-- ================= CLUSTERS ================= -->
+<label>
+Waterway Name *
+</label>
+
+<input
+type="text"
+id="locationName"
+placeholder="Example: Local Lake"
+required>
+
+</div>
+
+<div>
+
+<label>
+Contact Type *
+</label>
+
+<select id="contact">
+
+<option value="swam">
+Swam
+</option>
+
+<option value="waded">
+Waded
+</option>
+
+<option value="drank">
+Drank
+</option>
+
+<option value="other">
+Other
+</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Latitude *
+</label>
+
+<input
+type="number"
+id="lat"
+step="any"
+placeholder="40.7829"
+required>
+
+</div>
+
+<div>
+
+<label>
+Longitude *
+</label>
+
+<input
+type="number"
+id="lng"
+step="any"
+placeholder="-73.9654"
+required>
+
+</div>
+
+</div>
+
+<br>
+
+<label>
+Symptoms
+</label>
+
+<div class="symptoms">
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="none"
+checked>
+
+No symptoms
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="vomiting">
+
+Vomiting
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="diarrhea">
+
+Diarrhea
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="lethargy">
+
+Lethargy
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="rash">
+
+Rash
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="seizure">
+
+Seizure
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="difficulty breathing">
+
+Difficulty breathing
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="drooling">
+
+Drooling
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="loss of appetite">
+
+Loss of appetite
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="red eyes">
+
+Red eyes
+
+</label>
+
+<label class="symptom">
+
+<input
+type="checkbox"
+name="symptom"
+value="skin irritation">
+
+Skin irritation
+
+</label>
+
+</div>
+
+<div class="checkbox-row">
+
+<label>
+
+<input
+type="checkbox"
+id="ateUnusualFood">
+
+Ate unusual food
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="recentDietChange">
+
+Recent diet change
+
+</label>
+
+</div>
+
+<div class="button-row">
+
+<button
+type="button"
+class="secondary"
+onclick="getLocation()">
+
+📍 Use My Location
+
+</button>
+
+<button
+type="submit"
+class="primary">
+
+🐾 Submit Report
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- RISK SIGNALS -->
 
 <div class="section">
 
-    <h2>
-        ⚠️ Waterway Risk Signals
-    </h2>
+<h2>
+⚠️ Waterway Risk Signals
+</h2>
 
-    <div
-        id="clusters"
-        class="clusters"
-    >
+<div
+id="clusters"
+class="clusters">
 
-        <div class="loading">
-            Loading clusters...
-        </div>
-
-    </div>
+<div class="loading">
+Loading clusters...
+</div>
 
 </div>
 
+</div>
 
-<!-- ================= REPORTS ================= -->
+<!-- REPORTS -->
 
 <div class="section">
 
-    <h2>
-        📋 Recent Reports
-    </h2>
+<h2>
+📋 Recent Reports
+</h2>
 
-    <div id="reports">
+<div id="reports">
 
-        <div class="loading">
-            Loading reports...
-        </div>
-
-    </div>
+<div class="loading">
+Loading reports...
+</div>
 
 </div>
-```
+
+</div>
 
 </div>
 
 <footer>
 
-```
 SENTINEL PAWS 🐾 |
 Community water exposure monitoring
-```
 
 </footer>
 
-<!-- Leaflet -->
-
 <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
 <script>
 
-
-/* =========================================================
-   API
-========================================================= */
-
-const API = "/api";
-
-
-/* =========================================================
-   MAP
-========================================================= */
+const API="/api";
 
 let map;
 
-let markers = [];
+let markers=[];
 
 
-function initializeMap() {
+/* MAP */
 
-    map = L.map("map").setView(
-        [40.75, -74.00],
-        12
-    );
+function initializeMap(){
+
+map=L.map("map")
+.setView([40.75,-74.00],12);
 
 
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            maxZoom: 19,
-            attribution:
-                "&copy; OpenStreetMap contributors"
-        }
-    ).addTo(map);
+L.tileLayer(
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
+maxZoom:19,
+attribution:
+"&copy; OpenStreetMap contributors"
+}
+).addTo(map);
 
 }
 
 
-/* =========================================================
-   MESSAGE
-========================================================= */
+/* MESSAGE */
 
-function showMessage(
-    message,
-    type
-) {
+function showMessage(message,type){
 
-    const box =
-        document.getElementById("message");
+const box=
+document.getElementById("message");
 
+box.textContent=message;
 
-    box.textContent =
-        message;
+box.className=type;
+
+box.style.display="block";
 
 
-    box.className =
-        type;
+setTimeout(function(){
 
+box.style.display="none";
 
-    box.style.display =
-        "block";
-
-
-    setTimeout(() => {
-
-        box.style.display =
-            "none";
-
-    }, 4000);
+},4000);
 
 }
 
 
-/* =========================================================
-   SERVER HEALTH
-========================================================= */
+/* SERVER */
 
-async function checkServer() {
+async function checkServer(){
 
-    const status =
-        document.getElementById(
-            "serverStatus"
-        );
+const status=
+document.getElementById("serverStatus");
 
 
-    try {
+try{
 
-        const response =
-            await fetch(
-                `${API}/health`
-            );
+const response=
+await fetch(`${API}/health`);
 
-
-        const data =
-            await response.json();
+const data=
+await response.json();
 
 
-        if (data.success) {
+if(data.success){
 
-            status.textContent =
-                "● Server Online";
+status.textContent=
+"● Server Online";
 
-        } else {
+}
+else{
 
-            status.textContent =
-                "● Server Error";
+status.textContent=
+"● Server Error";
 
-        }
+}
 
-    } catch (error) {
+}
+catch(error){
 
-        status.textContent =
-            "● Server Offline";
+status.textContent=
+"● Server Offline";
 
-    }
+}
 
 }
 
 
-/* =========================================================
-   LOAD DASHBOARD
-========================================================= */
+/* DASHBOARD */
 
-async function loadDashboard() {
+async function loadDashboard(){
 
-    try {
+try{
 
-        const response =
-            await fetch(
-                `${API}/dashboard`
-            );
+const response=
+await fetch(`${API}/dashboard`);
 
+const data=
+await response.json();
 
-        const data =
-            await response.json();
 
+if(!response.ok){
 
-        if (!response.ok) {
-
-            throw new Error(
-                data.error ||
-                data.message ||
-                "Dashboard failed"
-            );
-
-        }
-
-
-        const summary =
-            data.summary;
-
-
-        document.getElementById(
-            "totalReports"
-        ).textContent =
-            summary.totalReports;
-
-
-        document.getElementById(
-            "totalWaterways"
-        ).textContent =
-            summary.totalWaterways;
-
-
-        document.getElementById(
-            "highRisk"
-        ).textContent =
-            summary.highRisk;
-
-
-        document.getElementById(
-            "mediumRisk"
-        ).textContent =
-            summary.mediumRisk;
-
-
-        document.getElementById(
-            "lowRisk"
-        ).textContent =
-            summary.lowRisk;
-
-
-        document.getElementById(
-            "symptomaticReports"
-        ).textContent =
-            summary.symptomaticReports;
-
-
-        displayClusters(
-            data.clusters
-        );
-
-
-        displayMap(
-            data.clusters
-        );
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-        showMessage(
-            "Unable to load dashboard: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DISPLAY CLUSTERS
-========================================================= */
-
-function displayClusters(
-    clusters
-) {
-
-    const container =
-        document.getElementById(
-            "clusters"
-        );
-
-
-    if (!clusters.length) {
-
-        container.innerHTML =
-            "<p>No waterway data available.</p>";
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        clusters.map(cluster => {
-
-
-            let riskClass =
-                "risk-unknown";
-
-
-            if (
-                cluster.riskLevel === "high"
-            ) {
-
-                riskClass =
-                    "risk-high";
-
-            } else if (
-                cluster.riskLevel === "medium"
-            ) {
-
-                riskClass =
-                    "risk-medium";
-
-            } else if (
-                cluster.riskLevel === "low"
-            ) {
-
-                riskClass =
-                    "risk-low";
-
-            }
-
-
-            return `
-
-                <div class="cluster">
-
-                    <span class="risk ${riskClass}">
-                        ${cluster.riskLevel.toUpperCase()}
-                    </span>
-
-                    <h3>
-                        💧 ${escapeHTML(
-                            cluster.locationName
-                        )}
-                    </h3>
-
-                    <p>
-                        <strong>Status:</strong>
-                        ${escapeHTML(
-                            cluster.riskStatus
-                        )}
-                    </p>
-
-                    <p>
-                        <strong>Reports:</strong>
-                        ${cluster.totalLogs}
-                    </p>
-
-                    <p>
-                        <strong>Symptomatic:</strong>
-                        ${cluster.symptomaticLogs}
-                    </p>
-
-                    <p>
-                        <strong>Confirmed:</strong>
-                        ${cluster.confirmedSymptomaticLogs}
-                    </p>
-
-                    <p>
-                        <strong>Symptom Rate:</strong>
-                        ${cluster.symptomRate}%
-                    </p>
-
-                    <p>
-                        <strong>Severe Signals:</strong>
-                        ${cluster.severeSignals}
-                    </p>
-
-                    <p>
-                        <strong>Signal Score:</strong>
-                        ${cluster.signalScore}/100
-                    </p>
-
-                    <p>
-                        <strong>Coordinates:</strong>
-                        ${cluster.lat},
-                        ${cluster.lng}
-                    </p>
-
-                </div>
-
-            `;
-
-        }).join("");
-
-}
-
-
-/* =========================================================
-   MAP MARKERS
-========================================================= */
-
-function displayMap(
-    clusters
-) {
-
-    markers.forEach(
-        marker =>
-            map.removeLayer(marker)
-    );
-
-
-    markers = [];
-
-
-    clusters.forEach(
-        cluster => {
-
-
-            let color =
-                "#555";
-
-
-            if (
-                cluster.riskLevel === "high"
-            ) {
-
-                color =
-                    "#d9534f";
-
-            } else if (
-                cluster.riskLevel === "medium"
-            ) {
-
-                color =
-                    "#e6a817";
-
-            } else if (
-                cluster.riskLevel === "low"
-            ) {
-
-                color =
-                    "#28a745";
-
-            }
-
-
-            const marker =
-                L.circleMarker(
-                    [
-                        cluster.lat,
-                        cluster.lng
-                    ],
-                    {
-                        radius: 12,
-                        color: color,
-                        fillColor: color,
-                        fillOpacity: 0.65
-                    }
-                );
-
-
-            marker.bindPopup(`
-
-                <strong>
-                    ${escapeHTML(
-                        cluster.locationName
-                    )}
-                </strong>
-
-                <br><br>
-
-                Risk:
-                <strong>
-                    ${cluster.riskLevel}
-                </strong>
-
-                <br>
-
-                Reports:
-                ${cluster.totalLogs}
-
-                <br>
-
-                Symptomatic:
-                ${cluster.symptomaticLogs}
-
-                <br>
-
-                Signal Score:
-                ${cluster.signalScore}/100
-
-            `);
-
-
-            marker.addTo(map);
-
-            markers.push(marker);
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOAD REPORTS
-========================================================= */
-
-async function loadReports() {
-
-    const container =
-        document.getElementById(
-            "reports"
-        );
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${API}/reports`
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message ||
-                "Failed to load reports"
-            );
-
-        }
-
-
-        if (!data.reports.length) {
-
-            container.innerHTML =
-                "<p>No reports available.</p>";
-
-            return;
-
-        }
-
-
-        container.innerHTML =
-            data.reports
-                .slice()
-                .reverse()
-                .map(report => {
-
-
-                    const symptoms =
-                        report.symptoms
-                            .join(", ");
-
-
-                    const time =
-                        new Date(
-                            report.timestamp
-                        ).toLocaleString();
-
-
-                    return `
-
-                        <div class="report">
-
-                            <div class="report-top">
-
-                                <div class="report-name">
-
-                                    🐕 ${escapeHTML(
-                                        report.dogName
-                                    )}
-
-                                </div>
-
-
-                                <button
-                                    class="danger"
-                                    onclick="deleteReport(
-                                        ${report.id}
-                                    )"
-                                >
-                                    Delete
-                                </button>
-
-                            </div>
-
-
-                            <div class="report-details">
-
-                                <strong>
-                                    Waterway:
-                                </strong>
-
-                                ${escapeHTML(
-                                    report.locationName
-                                )}
-
-                                <br>
-
-                                <strong>
-                                    Contact:
-                                </strong>
-
-                                ${escapeHTML(
-                                    report.contact
-                                )}
-
-                                <br>
-
-                                <strong>
-                                    Symptoms:
-                                </strong>
-
-                                ${escapeHTML(
-                                    symptoms
-                                )}
-
-                                <br>
-
-                                <strong>
-                                    Coordinates:
-                                </strong>
-
-                                ${report.lat},
-                                ${report.lng}
-
-                                <br>
-
-                                <strong>
-                                    Time:
-                                </strong>
-
-                                ${time}
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }).join("");
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-        container.innerHTML =
-            `<p>Unable to load reports.</p>`;
-
-    }
-
-}
-
-
-/* =========================================================
-   GET LOCATION
-========================================================= */
-
-function getLocation() {
-
-    if (
-        !navigator.geolocation
-    ) {
-
-        showMessage(
-            "Geolocation is not supported by this browser.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    showMessage(
-        "Getting your location...",
-        "success"
-    );
-
-
-    navigator.geolocation.getCurrentPosition(
-
-        position => {
-
-            document.getElementById(
-                "lat"
-            ).value =
-                position.coords.latitude
-                    .toFixed(6);
-
-
-            document.getElementById(
-                "lng"
-            ).value =
-                position.coords.longitude
-                    .toFixed(6);
-
-
-            showMessage(
-                "Location detected successfully.",
-                "success"
-            );
-
-        },
-
-        error => {
-
-            console.error(
-                error
-            );
-
-
-            showMessage(
-                "Unable to get your location. Enter coordinates manually.",
-                "error"
-            );
-
-        },
-
-        {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        }
-
-    );
-
-}
-
-
-/* =========================================================
-   SYMPTOM CHECKBOX
-========================================================= */
-
-document.querySelectorAll(
-    'input[name="symptom"]'
-).forEach(
-    checkbox => {
-
-        checkbox.addEventListener(
-            "change",
-            () => {
-
-                const none =
-                    document.querySelector(
-                        'input[value="none"]'
-                    );
-
-
-                const others =
-                    document.querySelectorAll(
-                        'input[name="symptom"]:not([value="none"])'
-                    );
-
-
-                if (
-                    checkbox.value === "none" &&
-                    checkbox.checked
-                ) {
-
-                    others.forEach(
-                        item =>
-                            item.checked =
-                                false
-                    );
-
-                }
-
-
-                if (
-                    checkbox.value !== "none" &&
-                    checkbox.checked
-                ) {
-
-                    none.checked =
-                        false;
-
-                }
-
-            }
-        );
-
-    }
+throw new Error(
+data.error ||
+data.message ||
+"Dashboard failed"
 );
 
+}
 
-/* =========================================================
-   SUBMIT REPORT
-========================================================= */
+
+const summary=data.summary;
+
 
 document.getElementById(
-    "reportForm"
-).addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
+"totalReports"
+).textContent=
+summary.totalReports;
 
 
-        const lat =
-            Number(
-                document.getElementById(
-                    "lat"
-                ).value
-            );
+document.getElementById(
+"totalWaterways"
+).textContent=
+summary.totalWaterways;
 
 
-        const lng =
-            Number(
-                document.getElementById(
-                    "lng"
-                ).value
-            );
+document.getElementById(
+"highRisk"
+).textContent=
+summary.highRisk;
 
 
-        const locationName =
-            document.getElementById(
-                "locationName"
-            ).value.trim();
+document.getElementById(
+"mediumRisk"
+).textContent=
+summary.mediumRisk;
 
 
-        if (
-            !Number.isFinite(lat) ||
-            lat < -90 ||
-            lat > 90
-        ) {
-
-            showMessage(
-                "Enter a valid latitude.",
-                "error"
-            );
-
-            return;
-
-        }
+document.getElementById(
+"lowRisk"
+).textContent=
+summary.lowRisk;
 
 
-        if (
-            !Number.isFinite(lng) ||
-            lng < -180 ||
-            lng > 180
-        ) {
-
-            showMessage(
-                "Enter a valid longitude.",
-                "error"
-            );
-
-            return;
-
-        }
+document.getElementById(
+"symptomaticReports"
+).textContent=
+summary.symptomaticReports;
 
 
-        const symptoms =
-            Array.from(
-                document.querySelectorAll(
-                    'input[name="symptom"]:checked'
-                )
-            ).map(
-                checkbox =>
-                    checkbox.value
-            );
-
-
-        const report = {
-
-            lat: lat,
-
-            lng: lng,
-
-            locationName:
-                locationName,
-
-            dogName:
-                document.getElementById(
-                    "dogName"
-                ).value.trim(),
-
-            contact:
-                document.getElementById(
-                    "contact"
-                ).value,
-
-            symptoms:
-                symptoms.length
-                    ? symptoms
-                    : ["none"],
-
-            ateUnusualFood:
-                document.getElementById(
-                    "ateUnusualFood"
-                ).checked,
-
-            recentDietChange:
-                document.getElementById(
-                    "recentDietChange"
-                ).checked
-
-        };
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API}/reports`,
-                    {
-
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify(
-                                report
-                            )
-
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.message ||
-                    "Report submission failed"
-                );
-
-            }
-
-
-            showMessage(
-                "Report submitted successfully 🐾",
-                "success"
-            );
-
-
-            document.getElementById(
-                "reportForm"
-            ).reset();
-
-
-            document.querySelector(
-                'input[value="none"]'
-            ).checked =
-                true;
-
-
-            await loadDashboard();
-
-            await loadReports();
-
-
-        } catch (error) {
-
-            console.error(
-                error
-            );
-
-
-            showMessage(
-                error.message,
-                "error"
-            );
-
-        }
-
-    }
+displayClusters(
+data.clusters
 );
 
 
-/* =========================================================
-   DELETE REPORT
-========================================================= */
+displayMap(
+data.clusters
+);
 
-async function deleteReport(
-    id
-) {
+}
+catch(error){
 
-    const confirmed =
-        confirm(
-            "Delete this report?"
-        );
+console.error(error);
 
+showMessage(
+"Unable to load dashboard: "+
+error.message,
+"error"
+);
 
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${API}/reports/${id}`,
-                {
-                    method: "DELETE"
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message ||
-                "Delete failed"
-            );
-
-        }
-
-
-        showMessage(
-            "Report deleted successfully.",
-            "success"
-        );
-
-
-        await loadDashboard();
-
-        await loadReports();
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        showMessage(
-            error.message,
-            "error"
-        );
-
-    }
+}
 
 }
 
 
-/* =========================================================
-   HTML SAFETY
-========================================================= */
+/* CLUSTERS */
 
-function escapeHTML(
-    value
-) {
+function displayClusters(clusters){
 
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+const container=
+document.getElementById("clusters");
+
+
+if(!clusters.length){
+
+container.innerHTML=
+"<p>No waterway data available.</p>";
+
+return;
 
 }
 
 
-/* =========================================================
-   INITIAL LOAD
-========================================================= */
+container.innerHTML=
+clusters.map(function(cluster){
+
+let riskClass=
+"risk-unknown";
+
+
+if(cluster.riskLevel==="high"){
+
+riskClass="risk-high";
+
+}
+else if(
+cluster.riskLevel==="medium"
+){
+
+riskClass="risk-medium";
+
+}
+else if(
+cluster.riskLevel==="low"
+){
+
+riskClass="risk-low";
+
+}
+
+
+return `
+
+<div class="cluster">
+
+<span class="risk ${riskClass}">
+
+${cluster.riskLevel.toUpperCase()}
+
+</span>
+
+
+<h3>
+
+💧
+${escapeHTML(
+cluster.locationName
+)}
+
+</h3>
+
+
+<p>
+
+<strong>Status:</strong>
+
+${escapeHTML(
+cluster.riskStatus
+)}
+
+</p>
+
+
+<p>
+
+<strong>Reports:</strong>
+
+${cluster.totalLogs}
+
+</p>
+
+
+<p>
+
+<strong>Symptomatic:</strong>
+
+${cluster.symptomaticLogs}
+
+</p>
+
+
+<p>
+
+<strong>Confirmed:</strong>
+
+${cluster.confirmedSymptomaticLogs}
+
+</p>
+
+
+<p>
+
+<strong>Symptom Rate:</strong>
+
+${cluster.symptomRate}%
+
+</p>
+
+
+<p>
+
+<strong>Severe Signals:</strong>
+
+${cluster.severeSignals}
+
+</p>
+
+
+<p>
+
+<strong>Signal Score:</strong>
+
+${cluster.signalScore}/100
+
+</p>
+
+
+<p>
+
+<strong>Coordinates:</strong>
+
+${cluster.lat},
+${cluster.lng}
+
+</p>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* MAP MARKERS */
+
+function displayMap(clusters){
+
+markers.forEach(function(marker){
+
+map.removeLayer(marker);
+
+});
+
+
+markers=[];
+
+
+clusters.forEach(function(cluster){
+
+let color="#555";
+
+
+if(cluster.riskLevel==="high"){
+
+color="#d9534f";
+
+}
+else if(
+cluster.riskLevel==="medium"
+){
+
+color="#e6a817";
+
+}
+else if(
+cluster.riskLevel==="low"
+){
+
+color="#28a745";
+
+}
+
+
+const marker=
+L.circleMarker(
+[
+cluster.lat,
+cluster.lng
+],
+{
+radius:12,
+color:color,
+fillColor:color,
+fillOpacity:.65
+}
+);
+
+
+marker.bindPopup(`
+
+<strong>
+${escapeHTML(
+cluster.locationName
+)}
+</strong>
+
+<br><br>
+
+Risk:
+<strong>
+${cluster.riskLevel}
+</strong>
+
+<br>
+
+Reports:
+${cluster.totalLogs}
+
+<br>
+
+Symptomatic:
+${cluster.symptomaticLogs}
+
+<br>
+
+Signal Score:
+${cluster.signalScore}/100
+
+`);
+
+
+marker.addTo(map);
+
+markers.push(marker);
+
+});
+
+}
+
+
+/* REPORTS */
+
+async function loadReports(){
+
+const container=
+document.getElementById("reports");
+
+
+try{
+
+const response=
+await fetch(`${API}/reports`);
+
+const data=
+await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.message ||
+"Failed to load reports"
+);
+
+}
+
+
+if(!data.reports.length){
+
+container.innerHTML=
+"<p>No reports available.</p>";
+
+return;
+
+}
+
+
+container.innerHTML=
+
+data.reports
+.slice()
+.reverse()
+.map(function(report){
+
+const symptoms=
+report.symptoms.join(", ");
+
+
+const time=
+new Date(
+report.timestamp
+).toLocaleString();
+
+
+return `
+
+<div class="report">
+
+<div class="report-top">
+
+<div class="report-name">
+
+🐕
+
+${escapeHTML(
+report.dogName
+)}
+
+</div>
+
+
+<button
+class="danger"
+onclick=
+"deleteReport(${report.id})">
+
+Delete
+
+</button>
+
+</div>
+
+
+<div class="report-details">
+
+<strong>
+Waterway:
+</strong>
+
+${escapeHTML(
+report.locationName
+)}
+
+<br>
+
+
+<strong>
+Contact:
+</strong>
+
+${escapeHTML(
+report.contact
+)}
+
+<br>
+
+
+<strong>
+Symptoms:
+</strong>
+
+${escapeHTML(
+symptoms
+)}
+
+<br>
+
+
+<strong>
+Coordinates:
+</strong>
+
+${report.lat},
+${report.lng}
+
+<br>
+
+
+<strong>
+Time:
+</strong>
+
+${time}
+
+</div>
+
+</div>
+
+`;
+
+})
+.join("");
+
+}
+catch(error){
+
+console.error(error);
+
+container.innerHTML=
+"<p>Unable to load reports.</p>";
+
+}
+
+}
+
+
+/* LOCATION */
+
+function getLocation(){
+
+if(!navigator.geolocation){
+
+showMessage(
+"Geolocation is not supported by this browser.",
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"Getting your location...",
+"success"
+);
+
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+document.getElementById("lat").value=
+position.coords.latitude.toFixed(6);
+
+
+document.getElementById("lng").value=
+position.coords.longitude.toFixed(6);
+
+
+showMessage(
+"Location detected successfully.",
+"success"
+);
+
+},
+
+function(error){
+
+console.error(error);
+
+showMessage(
+"Unable to get your location. Enter coordinates manually.",
+"error"
+);
+
+},
+
+{
+enableHighAccuracy:true,
+timeout:10000,
+maximumAge:0
+}
+
+);
+
+}
+
+
+/* SYMPTOMS */
+
+document
+.querySelectorAll(
+'input[name="symptom"]'
+)
+.forEach(function(checkbox){
+
+checkbox.addEventListener(
+"change",
+function(){
+
+const none=
+document.querySelector(
+'input[value="none"]'
+);
+
+
+const others=
+document.querySelectorAll(
+'input[name="symptom"]:not([value="none"])'
+);
+
+
+if(
+checkbox.value==="none" &&
+checkbox.checked
+){
+
+others.forEach(
+function(item){
+
+item.checked=false;
+
+}
+);
+
+}
+
+
+if(
+checkbox.value!=="none" &&
+checkbox.checked
+){
+
+none.checked=false;
+
+}
+
+}
+);
+
+});
+
+
+/* SUBMIT */
+
+document
+.getElementById("reportForm")
+.addEventListener(
+"submit",
+async function(event){
+
+event.preventDefault();
+
+
+const lat=
+Number(
+document.getElementById("lat").value
+);
+
+
+const lng=
+Number(
+document.getElementById("lng").value
+);
+
+
+const locationName=
+document
+.getElementById("locationName")
+.value
+.trim();
+
+
+if(
+!Number.isFinite(lat) ||
+lat<-90 ||
+lat>90
+){
+
+showMessage(
+"Enter a valid latitude.",
+"error"
+);
+
+return;
+
+}
+
+
+if(
+!Number.isFinite(lng) ||
+lng<-180 ||
+lng>180
+){
+
+showMessage(
+"Enter a valid longitude.",
+"error"
+);
+
+return;
+
+}
+
+
+const symptoms=
+Array.from(
+document.querySelectorAll(
+'input[name="symptom"]:checked'
+)
+)
+.map(function(checkbox){
+
+return checkbox.value;
+
+});
+
+
+const report={
+
+lat:lat,
+
+lng:lng,
+
+locationName:locationName,
+
+dogName:
+document
+.getElementById("dogName")
+.value
+.trim(),
+
+contact:
+document
+.getElementById("contact")
+.value,
+
+symptoms:
+symptoms.length
+?symptoms
+:["none"],
+
+ateUnusualFood:
+document
+.getElementById("ateUnusualFood")
+.checked,
+
+recentDietChange:
+document
+.getElementById("recentDietChange")
+.checked
+
+};
+
+
+try{
+
+const response=
+await fetch(
+`${API}/reports`,
+{
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(report)
+
+}
+);
+
+
+const data=
+await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.message ||
+"Report submission failed"
+);
+
+}
+
+
+showMessage(
+"Report submitted successfully 🐾",
+"success"
+);
+
+
+document
+.getElementById("reportForm")
+.reset();
+
+
+document.querySelector(
+'input[value="none"]'
+).checked=true;
+
+
+await loadDashboard();
+
+await loadReports();
+
+}
+catch(error){
+
+console.error(error);
+
+showMessage(
+error.message,
+"error"
+);
+
+}
+
+}
+);
+
+
+/* DELETE */
+
+async function deleteReport(id){
+
+if(
+!confirm(
+"Delete this report?"
+)
+){
+
+return;
+
+}
+
+
+try{
+
+const response=
+await fetch(
+`${API}/reports/${id}`,
+{
+method:"DELETE"
+}
+);
+
+
+const data=
+await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.message ||
+"Delete failed"
+);
+
+}
+
+
+showMessage(
+"Report deleted successfully.",
+"success"
+);
+
+
+await loadDashboard();
+
+await loadReports();
+
+}
+catch(error){
+
+console.error(error);
+
+showMessage(
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(value){
+
+return String(value)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+/* START */
 
 initializeMap();
 
@@ -1903,7 +2321,6 @@ checkServer();
 loadDashboard();
 
 loadReports();
-
 
 </script>
 
